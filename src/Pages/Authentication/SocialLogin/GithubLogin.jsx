@@ -1,25 +1,24 @@
 import React from "react";
-import { FaGoogle } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
-import { useNavigate } from "react-router";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 import useAxios from "../../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
-const GoogleLogin = () => {
-  const { googleAuth } = useAuth();
+const GithubLogin = () => {
+  const { githubAuth } = useAuth();
   const navigate = useNavigate();
 
   const axios = useAxios();
-
   const handleClick = () => {
-    googleAuth()
+    githubAuth()
       .then(async (res) => {
         console.log(res.user);
 
         const userDetails = {
           username: res.user.displayName,
-          email: res.user.email,
+          email: res.user.providerData[0].email,
           role: "user",
           imgUrl: res.user.photoURL,
           createdAt: new Date().toISOString(),
@@ -41,18 +40,17 @@ const GoogleLogin = () => {
         toast.error("Social LogIn Error");
       });
   };
-
   return (
     <button
       onClick={handleClick}
       type="button"
       className="flex items-center justify-center gap-2 w-full border border-gray-300 dark:border-gray-600 rounded px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
-      <FaGoogle className="text-red-500 scale-120" />
+      <FaGithub className="dark:text-white scale-125" />
       <span className="text-sm font-medium dark:text-white">
-        Continue with Google
+        Continue with Github
       </span>
     </button>
   );
 };
 
-export default GoogleLogin;
+export default GithubLogin;

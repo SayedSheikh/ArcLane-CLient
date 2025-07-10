@@ -15,6 +15,7 @@ import GoogleLogin from "../SocialLogin/GoogleLogin";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import GithubLogin from "../SocialLogin/GithubLogin";
 
 const Login = () => {
   const { emailPassLogin } = useAuth();
@@ -152,6 +153,7 @@ const Login = () => {
             {/* Social Login */}
             <div className="flex flex-col gap-3 mt-4">
               <GoogleLogin></GoogleLogin>
+              <GithubLogin></GithubLogin>
             </div>
           </form>
         </Card>

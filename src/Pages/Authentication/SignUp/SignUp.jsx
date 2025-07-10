@@ -16,6 +16,7 @@ import GoogleLogin from "../SocialLogin/GoogleLogin";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../Hooks/useAxios";
+import GithubLogin from "../SocialLogin/GithubLogin";
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -42,6 +43,8 @@ const Signup = () => {
       username: data.name,
       email: data.email,
       role: "user",
+      createdAt: new Date().toISOString(),
+      lastLogin: new Date().toISOString(),
     };
 
     setLoading(true);
@@ -274,6 +277,7 @@ const Signup = () => {
             {/* Social Buttons */}
             <div className="flex flex-col gap-3 mt-4">
               <GoogleLogin></GoogleLogin>
+              <GithubLogin></GithubLogin>
             </div>
           </form>
         </Card>
