@@ -7,26 +7,27 @@ import {
   SidebarItem,
   SidebarItemGroup,
   SidebarItems,
-  TextInput,
 } from "flowbite-react";
 import { useState } from "react";
-import {
-  HiChartPie,
-  HiClipboard,
-  HiCollection,
-  HiInformationCircle,
-  HiLogin,
-  HiMenu,
-  HiPencil,
-  HiSearch,
-  HiShoppingBag,
-  HiUsers,
-} from "react-icons/hi";
+import { HiMenu } from "react-icons/hi";
 import { NavLink, Outlet } from "react-router";
 import Logo from "../../Pages/Shared/Logo/Logo";
+import useUserRole from "../../Hooks/useUserRole";
+import {
+  FaBullhorn,
+  FaCreditCard,
+  FaFileSignature,
+  FaHistory,
+  FaTicketAlt,
+  FaUserCircle,
+  FaUsers,
+  FaUsersCog,
+  FaUserShield,
+} from "react-icons/fa";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { userRole } = useUserRole();
 
   const handleClose = () => setIsOpen(false);
 
@@ -47,10 +48,92 @@ const Dashboard = () => {
 
       <SidebarItems>
         <Logo></Logo>
-        <SidebarItemGroup>
-          <NavLink className="dark:text-white font-semibold" to="/">
-            Users list
-          </NavLink>
+        <SidebarItemGroup className="flex flex-col">
+          {/* admin routes */}
+          {userRole?.role === "admin" && (
+            <>
+              <NavLink
+                to="/admin-profile"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+                <FaUserShield className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
+                Admin Profile
+              </NavLink>
+
+              <NavLink
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
+                to="/users">
+                <FaUsers className="text-green-500 text-xl group-hover:text-green-600 transition-colors" />
+                Users List
+              </NavLink>
+
+              <NavLink
+                to="/manage-members"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+                <FaUsersCog className="text-purple-500 text-xl group-hover:text-indigo-600 transition-colors" />
+                Manage Members
+              </NavLink>
+
+              <NavLink
+                to="/make-announcement"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+                <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
+                Make Announcement
+              </NavLink>
+
+              <NavLink
+                to="/agreement-requests"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+                <FaFileSignature className="text-amber-500 text-xl group-hover:text-amber-600 transition-colors" />
+                Agreement Requests
+              </NavLink>
+
+              <NavLink
+                to="/manage-coupons"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+                <FaTicketAlt className="text-pink-500 text-xl group-hover:text-pink-600 transition-colors" />
+                Manage Coupons
+              </NavLink>
+            </>
+          )}
+
+          {/* member or user routes */}
+
+          {["user", "member"].includes(userRole?.role) && (
+            <>
+              <NavLink
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group"
+                to="/profile">
+                <FaUserCircle className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
+                My Profile
+              </NavLink>
+
+              <NavLink
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group"
+                to="/announcements">
+                <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
+                Announcements
+              </NavLink>
+            </>
+          )}
+          {/* member routes */}
+          {userRole?.role === "member" && (
+            <>
+              <NavLink
+                to="/make-payment"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
+                <FaCreditCard className="text-purple-500 text-xl group-hover:text-purple-600 transition-colors" />
+                Make Payment
+              </NavLink>
+
+              <NavLink
+                to="/payment-history"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
+                <FaHistory className="text-rose-500 text-xl group-hover:text-rose-600 transition-colors" />
+                Payment History
+              </NavLink>
+            </>
+          )}
+          {/* user routes */}
         </SidebarItemGroup>
         {/* <SidebarItemGroup>
           
