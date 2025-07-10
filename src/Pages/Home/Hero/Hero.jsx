@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
 import { Button } from "flowbite-react";
+import "./hero.css";
 
 import {
   HiBuildingOffice2,
@@ -19,20 +20,17 @@ import CountUp from "react-countup";
 
 const slides = [
   {
-    image:
-      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&h=600&fit=crop&crop=center",
+    image: "https://i.ibb.co/yFTTht78/building-1.jpg",
     title: "Luxury Living at Its Finest",
     subtitle: "Experience premium apartments with world-class amenities",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1200&h=600&fit=crop&crop=center",
+    image: "https://i.ibb.co/NdtrKBfY/building-2.jpg",
     title: "Modern Architecture",
     subtitle: "Contemporary design meeting functional excellence",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=1200&h=600&fit=crop&crop=center",
+    image: "https://i.ibb.co/7tmx1b05/building-3.jpg",
     title: "Your Dream Home Awaits",
     subtitle: "Premium locations with unmatched comfort and security",
   },
@@ -41,7 +39,6 @@ const slides = [
 const Hero = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
-  console.log(width);
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
 

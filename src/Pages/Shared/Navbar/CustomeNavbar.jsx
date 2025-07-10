@@ -8,9 +8,11 @@ import {
 } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import "./navbar.css";
 import Logo from "../Logo/Logo";
+import CustomAvatar from "../Avatar/CustomAvatar";
+import useAuth from "../../../Hooks/useAuth";
 
 const CustomeNavbar = () => {
   const [theme, setTheme] = useState(() => {
@@ -20,6 +22,8 @@ const CustomeNavbar = () => {
       ? "dark"
       : "light";
   });
+
+  const { user } = useAuth();
 
   useEffect(() => {
     const isDark = theme === "dark";
@@ -37,7 +41,7 @@ const CustomeNavbar = () => {
         fluid
         rounded
         className="dark:bg-[#030712] max-w-[1500px] mx-auto">
-        <NavbarBrand href="#">
+        <NavbarBrand>
           {/* Logo or App Name */}
           <Logo></Logo>
         </NavbarBrand>
@@ -52,9 +56,17 @@ const CustomeNavbar = () => {
               <FaMoon className="text-xl text-gray-800 dark:text-white cursor-pointer" />
             )}
           </button>
-          <Button className="hidden md:block cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
-            LogIn
-          </Button>
+
+          {user ? (
+            <CustomAvatar />
+          ) : (
+            <Link to="/login">
+              <Button className="hidden md:block cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
+                LogIn
+              </Button>
+            </Link>
+          )}
+
           <NavbarToggle />
         </div>
         <NavbarCollapse className="dark:text-white">

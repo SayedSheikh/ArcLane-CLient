@@ -19,6 +19,7 @@ import {
 } from "react-icons/bs";
 
 export default function CustomFooter() {
+  const date = new Date();
   return (
     <div className="dark:bg-[#030712]">
       <Footer
@@ -60,7 +61,7 @@ export default function CustomFooter() {
           </div>
           <FooterDivider />
           <div className="w-full sm:flex sm:items-center sm:justify-between">
-            <FooterCopyright href="#" by="Flowbite™" year={2022} />
+            <FooterCopyright href="#" by="ArcLane™" year={date.getFullYear()} />
             <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
               <FooterIcon href="#" icon={BsFacebook} />
               <FooterIcon href="#" icon={BsInstagram} />

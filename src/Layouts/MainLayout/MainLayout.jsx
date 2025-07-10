@@ -6,7 +6,7 @@ import CustomFooter from "../../Pages/Shared/Footer/CustomFooter";
 
 const MainLayout = () => {
   return (
-    <div className="">
+    <div className="font-inter">
       <CustomeNavbar />
       <div className="min-h-[calc(100vh-60px)] dark:dark:bg-[#030712]">
         <Outlet />

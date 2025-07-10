@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "../Hero/Hero";
+// import useAuth from "../../../Hooks/useAuth";
 
 const Home = () => {
   return (
