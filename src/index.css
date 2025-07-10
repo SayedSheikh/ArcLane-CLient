@@ -16,7 +16,7 @@
 @theme {
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
-  --color-bg-dark: var(--color-bg-dark);
+  --color-dark: var(--color-dark);
   --font-inter: Inter, sans-serif;
   --font-fjalla: "Fjalla One", sans-serif;
   --font-dancing: "Dancing Script", cursive;

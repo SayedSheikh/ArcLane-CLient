@@ -10,6 +10,7 @@ import { HiLogout, HiViewGrid } from "react-icons/hi";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Link } from "react-router";
 
 const CustomAvatar = () => {
   const [isActive, setIsActive] = useState(false);
@@ -75,9 +76,13 @@ const CustomAvatar = () => {
             {user?.email}
           </span>
         </DropdownHeader>
-        <DropdownItem icon={HiViewGrid} onClick={() => setIsActive(!isActive)}>
-          Dashboard
-        </DropdownItem>
+        <Link to="/dashboard">
+          <DropdownItem
+            icon={HiViewGrid}
+            onClick={() => setIsActive(!isActive)}>
+            Dashboard
+          </DropdownItem>
+        </Link>
         <DropdownDivider />
         <DropdownItem onClick={handleLogout} icon={HiLogout}>
           Sign out

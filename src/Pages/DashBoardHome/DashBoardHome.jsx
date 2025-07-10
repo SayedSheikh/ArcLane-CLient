@@ -1,7 +1,10 @@
 import React from "react";
+import useUserRole from "../../Hooks/useUserRole";
 
 const DashBoardHome = () => {
-  return <div>dashboard home</div>;
+  const { userRole, roleLoading } = useUserRole();
+
+  return <div className="dark:text-white">dashboard home {userRole?.role}</div>;
 };
 
 export default DashBoardHome;
