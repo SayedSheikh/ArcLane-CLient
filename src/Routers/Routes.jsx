@@ -7,6 +7,8 @@ import SignUp from "../Pages/Authentication/SignUp/SignUp";
 import Dashboard from "../Layouts/DashBoardLayout/DashBoardLayout";
 import DashBoardHome from "../Pages/DashBoardHome/DashBoardHome";
 import PrivateRoute from "../Routes/PrivateRoute";
+import MakePayment from "../Pages/MakePayment/MakePayment";
+import PaymentPage from "../Pages/MakePayment/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +51,15 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: DashBoardHome,
+      },
+      // user route TODO: make user route
+      {
+        path: "payment",
+        Component: MakePayment,
+      },
+      {
+        path: "paymentPage",
+        Component: PaymentPage,
       },
     ],
   },

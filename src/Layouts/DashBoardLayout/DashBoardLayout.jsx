@@ -119,7 +119,7 @@ const Dashboard = () => {
           {userRole?.role === "member" && (
             <>
               <NavLink
-                to="/make-payment"
+                to="/dashboard/payment"
                 className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
                 <FaCreditCard className="text-purple-500 text-xl group-hover:text-purple-600 transition-colors" />
                 Make Payment
@@ -183,10 +183,6 @@ const Dashboard = () => {
 
         {/* Main content */}
         <div className="flex-1 bg-blue-100 dark:bg-dark/20 p-4">
-          <h1 className="text-3xl dark:text-white font-bold mt-6">
-            Welcome to Dashboard
-          </h1>
-
           <Outlet></Outlet>
         </div>
       </div>
