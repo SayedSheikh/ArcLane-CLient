@@ -9,6 +9,8 @@ import DashBoardHome from "../Pages/DashBoardHome/DashBoardHome";
 import PrivateRoute from "../Routes/PrivateRoute";
 import MakePayment from "../Pages/MakePayment/MakePayment";
 import PaymentPage from "../Pages/MakePayment/PaymentPage";
+import ApartmentsContainer from "../Pages/Apartment/ApartmentsContainer/ApartmentsContainer";
+import axios from "axios";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +23,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "appartment",
-        element: <p>Appartments</p>,
+        Component: ApartmentsContainer,
+        loader: () => axios.get("http://localhost:3000/countApartments"),
       },
     ],
   },

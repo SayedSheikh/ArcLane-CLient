@@ -6,34 +6,16 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import React, { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import "./navbar.css";
 import Logo from "../Logo/Logo";
 import CustomAvatar from "../Avatar/CustomAvatar";
 import useAuth from "../../../Hooks/useAuth";
+import ThemeChange from "../ThemeChange/ThemeChange";
 
 const CustomeNavbar = () => {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) return savedTheme;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
-
   const { user } = useAuth();
-
-  useEffect(() => {
-    const isDark = theme === "dark";
-    document.documentElement.classList.toggle("dark", isDark);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
 
   return (
     <div className="bg-white dark:bg-[#030712] shadow-sm shadow-primary/50 sticky top-0  backdrop-blur-sm z-10">
@@ -46,16 +28,7 @@ const CustomeNavbar = () => {
           <Logo></Logo>
         </NavbarBrand>
         <div className="flex md:order-2 items-center gap-2">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800"
-            title="Toggle dark mode">
-            {theme === "dark" ? (
-              <FaSun className="text-xl text-gray-800 dark:text-white cursor-pointer"></FaSun>
-            ) : (
-              <FaMoon className="text-xl text-gray-800 dark:text-white cursor-pointer" />
-            )}
-          </button>
+          <ThemeChange></ThemeChange>
 
           {user ? (
             <CustomAvatar />

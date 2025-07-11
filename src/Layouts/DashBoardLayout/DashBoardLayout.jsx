@@ -24,6 +24,7 @@ import {
   FaUsersCog,
   FaUserShield,
 } from "react-icons/fa";
+import ThemeChange from "../../Pages/Shared/ThemeChange/ThemeChange";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +36,7 @@ const Dashboard = () => {
   const SidebarContent = () => (
     <Sidebar
       aria-label="Responsive Sidebar"
-      className="min-h-screen dark:bg-dark">
+      className="min-h-screen dark:bg-dark font-inter border-r-1 border-primary ">
       {/* <form className="pb-3 md:hidden">
         <TextInput
           icon={HiSearch}
@@ -46,7 +47,7 @@ const Dashboard = () => {
         />
       </form> */}
 
-      <SidebarItems>
+      <SidebarItems className="mx-0">
         <Logo></Logo>
         <SidebarItemGroup className="flex flex-col">
           {/* admin routes */}
@@ -54,7 +55,7 @@ const Dashboard = () => {
             <>
               <NavLink
                 to="/admin-profile"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+                className={`flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group`}>
                 <FaUserShield className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 Admin Profile
               </NavLink>
@@ -135,15 +136,17 @@ const Dashboard = () => {
           )}
           {/* user routes */}
         </SidebarItemGroup>
-        {/* <SidebarItemGroup>
-          
-          <SidebarItem
-            href="https://github.com/themesberg/flowbite-react/issues"
-            icon={HiInformationCircle}>
-            Help
-          </SidebarItem>
-        </SidebarItemGroup> */}
+
+        <SidebarItemGroup>
+          <div className="flex gap-2 items-center">
+            <p className="text-xl font-semibold dark:text-white">
+              Change Theme :
+            </p>
+            <ThemeChange></ThemeChange>
+          </div>
+        </SidebarItemGroup>
       </SidebarItems>
+
       {/* <div className="p-4 border-t mt-4">
         <Button className="focus:outline-none focus:ring-0" size="xs" fullSized>
           Toggle Dark Mode
@@ -153,8 +156,8 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="bg-dark w-screen border font-inter">
-      <div className="min-h-screen max-w-[1500px] mx-auto flex flex-col lg:flex-row">
+    <div className="dark:bg-dark w-screen border font-inter">
+      <div className="min-h-screen max-w-[1700px] mx-auto flex flex-col lg:flex-row">
         {/* Static Sidebar for lg+ */}
         <div className="hidden lg:block w-64 bg-white dark:bg-gray-800 border-r">
           <SidebarContent />
@@ -174,9 +177,13 @@ const Dashboard = () => {
         </nav>
 
         {/* Drawer for small screens */}
-        <Drawer backdrop={true} open={isOpen} onClose={handleClose}>
-          <DrawerHeader title="MENU" titleIcon={() => <></>} />
-          <DrawerItems>
+        <Drawer
+          backdrop={true}
+          open={isOpen}
+          onClose={handleClose}
+          className="px-0 max-w-[250px]">
+          <DrawerHeader title="" titleIcon={() => <></>} />
+          <DrawerItems className="h-full">
             <SidebarContent />
           </DrawerItems>
         </Drawer>

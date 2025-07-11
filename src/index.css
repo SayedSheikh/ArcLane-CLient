@@ -21,3 +21,6 @@
   --font-fjalla: "Fjalla One", sans-serif;
   --font-dancing: "Dancing Script", cursive;
 }
+.no-inner-padding > div:first-child {
+  padding: 0 !important;
+}

@@ -11,10 +11,12 @@ import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CustomAvatar = () => {
   const [isActive, setIsActive] = useState(false);
 
+  const queryClient = useQueryClient();
   const { logOut, user } = useAuth();
 
   const handleClick = () => {
@@ -34,9 +36,8 @@ const CustomAvatar = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         logOut()
-          .then((res) => {
-            console.log(res);
-
+          .then(() => {
+            queryClient.removeQueries(["role", user?.email]);
             Swal.fire({
               icon: "success",
               title: "Logged out successfully",
