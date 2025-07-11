@@ -9,7 +9,7 @@ import {
   Spinner,
 } from "flowbite-react";
 import { FaGoogle, FaLinkedin } from "react-icons/fa";
-import { Link, useNavigate } from "react-router"; // use "react-router-dom" if needed
+import { Link, useLocation, useNavigate } from "react-router"; // use "react-router-dom" if needed
 import Logo from "../../Shared/Logo/Logo";
 import GoogleLogin from "../SocialLogin/GoogleLogin";
 import useAuth from "../../../Hooks/useAuth";
@@ -19,6 +19,10 @@ import GithubLogin from "../SocialLogin/GithubLogin";
 
 const Login = () => {
   const { emailPassLogin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location?.state?.from || "/";
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,8 +32,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     setError("");
@@ -42,7 +44,7 @@ const Login = () => {
           title: "Successfully logged in",
           confirmButtonText: "OK",
         }).then(() => {
-          navigate("/");
+          navigate(from);
         });
       })
       .catch((err) => {
@@ -144,6 +146,7 @@ const Login = () => {
             <p className="text-center text-sm text-gray-500 dark:text-gray-300">
               Don’t have an account?{" "}
               <Link
+                state={{ from }}
                 to="/signup"
                 className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
                 Register here

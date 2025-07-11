@@ -40,7 +40,7 @@ const ApartmentsContainer = () => {
     isError,
     refetch: refetchData,
   } = useQuery({
-    queryKey: ["apartments", page, searchValue, min, max],
+    queryKey: ["apartments", page],
     enabled: true,
     queryFn: async () => {
       const res = await axios.get(
@@ -79,7 +79,9 @@ const ApartmentsContainer = () => {
         {/* Left: Filters */}
         <aside className="lg:w-[20%] mb-10 lg:mb-0 space-y-6">
           <div>
-            <h2 className="text-xl font-semibold mb-2">Search Apartments</h2>
+            <h2 className="text-xl text-secondary font-semibold mb-2">
+              Search Apartments
+            </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Search apartments by <br />
               <span className="font-medium text-gray-800 dark:text-gray-200">

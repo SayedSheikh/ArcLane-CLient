@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../Hooks/useAxios";
@@ -9,6 +9,9 @@ import useAxios from "../../../Hooks/useAxios";
 const GoogleLogin = () => {
   const { googleAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from || "/";
 
   const axios = useAxios();
 
@@ -33,7 +36,7 @@ const GoogleLogin = () => {
           title: "Successfully logged in",
           confirmButtonText: "OK",
         }).then(() => {
-          navigate("/");
+          navigate(from);
         });
       })
       .catch((err) => {

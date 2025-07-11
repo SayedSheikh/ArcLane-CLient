@@ -2,13 +2,16 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import useAxios from "../../../Hooks/useAxios";
 import toast from "react-hot-toast";
 
 const GithubLogin = () => {
   const { githubAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from || "/";
 
   const axios = useAxios();
   const handleClick = () => {
@@ -32,7 +35,7 @@ const GithubLogin = () => {
           title: "Successfully logged in",
           confirmButtonText: "OK",
         }).then(() => {
-          navigate("/");
+          navigate(from);
         });
       })
       .catch((err) => {

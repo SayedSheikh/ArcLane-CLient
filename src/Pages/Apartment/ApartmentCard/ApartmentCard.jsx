@@ -1,6 +1,18 @@
 import React from "react";
+import useAuth from "../../../Hooks/useAuth";
+import { useLocation, useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ApartmentCard = ({ apartment }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
   const {
     apartmentImage,
     floorNo,
@@ -8,6 +20,7 @@ const ApartmentCard = ({ apartment }) => {
     apartmentNo,
     rent,
     apartmentStatus,
+    _id,
   } = apartment;
 
   const getStatusStyle = () => {
@@ -23,6 +36,69 @@ const ApartmentCard = ({ apartment }) => {
     }
   };
 
+  const handleClick = async () => {
+    if (!user) {
+      navigate("/login", { state: { from: pathname } });
+      toast.success("LogIn First !!");
+      return;
+    }
+
+    if (apartmentStatus === "pending" || apartmentStatus === "booked") {
+      toast.error(`apartment not available !!`);
+      return;
+    }
+
+    // Confirmation with SweetAlert2
+    const confirmResult = await Swal.fire({
+      title: "Confirm Agreement Request",
+      text: `Want an agreement for Apartment ${apartmentNo}?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#6366f1", // indigo
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, request it",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!confirmResult.isConfirmed) {
+      // User cancelled
+      return;
+    }
+
+    const details = {
+      apartmentId: _id,
+      agreementStatus: "pending",
+      reqUser: user?.displayName,
+      reqEmail: user?.email,
+      reqDate: new Date().toISOString(),
+    };
+
+    try {
+      const res = await axiosSecure.post(`/agreement/${user?.email}`, details);
+
+      if (res.data?.insertedId) {
+        queryClient.invalidateQueries(["apartments"]);
+        await Swal.fire({
+          icon: "success",
+          title: "Agreement request sent!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        await Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: res.data?.message || "Something went wrong",
+          confirmButtonColor: "#d33",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      toast.error("Failed to create agreement");
+      console.error(error);
+    }
+  };
+
   return (
     <div className="w-full h-full bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden font-inter border border-primary/30 hover:outline-1 outline-primary">
       <div className="flex flex-col md:flex-row w-full h-full group">
@@ -31,7 +107,7 @@ const ApartmentCard = ({ apartment }) => {
           <img
             src={apartmentImage}
             alt={`Apartment ${apartmentNo}`}
-            className="group-hover:scale-130 h-full w-full object-cover md:rounded-l-lg md:rounded-t-none rounded-t-lg transition-all"
+            className="group-hover:scale-130 h-full w-full object-cover md:rounded-l-lg md:rounded-t-none rounded-t-lg transition-all duration-300"
           />
         </div>
 
@@ -63,7 +139,9 @@ const ApartmentCard = ({ apartment }) => {
             </span>
           </p>
 
-          <button className="mt-3 w-fit px-4 py-2 text-sm font-semibold bg-primary text-white rounded-md hover:bg-primary/70 transition cursor-pointer">
+          <button
+            onClick={handleClick}
+            className="mt-3 w-fit px-4 py-2 text-sm font-semibold bg-primary text-white rounded-md hover:bg-primary/70 transition cursor-pointer">
             Agreement
           </button>
         </div>

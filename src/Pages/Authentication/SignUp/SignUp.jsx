@@ -9,7 +9,7 @@ import {
   Spinner,
 } from "flowbite-react";
 import { FaGoogle, FaLinkedin } from "react-icons/fa";
-import { Link, useNavigate } from "react-router"; // or react-router-dom
+import { Link, useLocation, useNavigate } from "react-router"; // or react-router-dom
 import Logo from "../../Shared/Logo/Logo";
 import useAuth from "../../../Hooks/useAuth";
 import GoogleLogin from "../SocialLogin/GoogleLogin";
@@ -21,6 +21,9 @@ import GithubLogin from "../SocialLogin/GithubLogin";
 const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const location = useLocation();
+
+  const from = location?.state?.from || "/";
 
   const { emailPassSignup, updateUserProfile } = useAuth();
   const {
@@ -80,9 +83,9 @@ const Signup = () => {
               confirmButtonColor: "#3085d6",
               confirmButtonText: "Go to Home",
             }).then(async () => {
-              const result = await axios.post("/users", userDetails);
-              console.log(result);
-              navigate("/");
+              await axios.post("/users", userDetails);
+
+              navigate(from);
             });
 
             setLoading(false);
