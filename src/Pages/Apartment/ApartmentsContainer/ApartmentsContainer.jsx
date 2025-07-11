@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router";
 import ApartmentCard from "../ApartmentCard/ApartmentCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
+import { Spinner } from "flowbite-react"; // ✅ Import Flowbite Spinner
 
 const ApartmentsContainer = () => {
   const aptNumber = useLoaderData();
@@ -14,7 +15,6 @@ const ApartmentsContainer = () => {
     ...Array(numberOfPages).keys(),
   ]);
   const [page, setPage] = useState(1);
-
   const [searchValue, setSearchValue] = useState("");
   const [max, setMax] = useState(25000);
   const [min, setMin] = useState(15000);
@@ -29,11 +29,8 @@ const ApartmentsContainer = () => {
         page - 1
       }/6?search=${searchValue}&max=${max}&min=${min}&countPage=count`
     );
-
     const countPages = Math.ceil(res.data / 6);
-
     setPagesNumber([...Array(countPages).keys()]);
-
     return res.data;
   };
 
@@ -43,21 +40,26 @@ const ApartmentsContainer = () => {
     isError,
     refetch: refetchData,
   } = useQuery({
-    queryKey: ["apartments", page],
+    queryKey: ["apartments", page, searchValue, min, max],
     enabled: true,
     queryFn: async () => {
       const res = await axios.get(
         `/apartments/${page - 1}/6?search=${searchValue}&max=${max}&min=${min}`
       );
-
       return res.data;
     },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPage(1);
     await fetchCount();
     refetchData();
+  };
+
+  const handlePageClick = (i) => {
+    setPage(i + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -72,9 +74,9 @@ const ApartmentsContainer = () => {
         </p>
       </header>
 
-      {/* Main content - split left and right on md+ */}
+      {/* Main content */}
       <div className="lg:flex lg:space-x-10 mx-auto">
-        {/* Left - Search & filters */}
+        {/* Left: Filters */}
         <aside className="lg:w-[20%] mb-10 lg:mb-0 space-y-6">
           <div>
             <h2 className="text-xl font-semibold mb-2">Search Apartments</h2>
@@ -104,7 +106,7 @@ const ApartmentsContainer = () => {
             </p>
           </div>
 
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <input
               name="search"
               type="text"
@@ -132,41 +134,55 @@ const ApartmentsContainer = () => {
               onChange={(e) => setMax(e.target.value)}
               className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-sm font-medium">
               {rentOptions.map((val) => (
-                <option className="w-full" key={val} value={val}>
+                <option key={val} value={val}>
                   Max: ${val}
                 </option>
               ))}
             </select>
 
             <button
-              onClick={handleSubmit}
-              className="w-full px-10 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition cursor-pointer">
+              type="submit"
+              className="w-full px-10 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/70 transition cursor-pointer">
               Search
             </button>
           </form>
         </aside>
 
-        {/* Right - Apartment cards */}
-        <section className="lg:w-[80%] grid grid-cols-1 xl:grid-cols-2 gap-5">
-          <ApartmentCard />
-          <ApartmentCard />
-          <ApartmentCard />
-          <ApartmentCard />
-          <ApartmentCard />
+        {/* Right: Apartment Cards */}
+        <section className="lg:w-[80%] grid grid-cols-1 xl:grid-cols-2 gap-5 items-start min-h-[200px]">
+          {/* ✅ Loading State */}
+          {/* TODO:Add Spinner */}
+          {isLoading ? (
+            <div className="col-span-full flex justify-center items-center h-[200px]">
+              <Spinner size="xl" color="indigo" />
+            </div>
+          ) : isError ? (
+            <div className="col-span-full text-center text-red-500 font-semibold">
+              Something went wrong. Please try again later.
+            </div>
+          ) : data?.length === 0 ? (
+            <div className="col-span-full text-center text-gray-500 dark:text-gray-400 font-medium">
+              No apartments found matching your criteria.
+            </div>
+          ) : (
+            data.map((item) => (
+              <ApartmentCard key={item._id} apartment={item} />
+            ))
+          )}
         </section>
       </div>
 
-      {/* Pagination buttons */}
+      {/* Pagination */}
       <div className="flex flex-wrap justify-center gap-4 mt-16">
         {pagesNumber?.map((i) => (
           <button
             key={i}
-            className={`px-5 py-2 rounded-md border border-gray-300 dark:border-gray-600   hover:bg-indigo-600 hover:text-white text-gray-900 dark:text-gray-100 transition cursor-pointer ${
+            className={`px-5 py-2 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-primary hover:text-white text-gray-900 dark:text-gray-100 transition cursor-pointer ${
               page - 1 === i
-                ? "bg-indigo-600 text-white"
+                ? "bg-primary text-white"
                 : "bg-white dark:bg-gray-800"
             }`}
-            onClick={() => setPage(i + 1)}>
+            onClick={() => handlePageClick(i)}>
             {i + 1}
           </button>
         ))}
