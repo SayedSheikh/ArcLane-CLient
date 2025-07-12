@@ -67,6 +67,10 @@ const ApartmentCard = ({ apartment }) => {
 
     const details = {
       apartmentId: _id,
+      floorNo,
+      blockName,
+      apartmentNo,
+      rent,
       agreementStatus: "pending",
       reqUser: user?.displayName,
       reqEmail: user?.email,

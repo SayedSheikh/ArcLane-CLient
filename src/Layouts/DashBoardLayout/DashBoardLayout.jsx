@@ -4,7 +4,6 @@ import {
   DrawerHeader,
   DrawerItems,
   Sidebar,
-  SidebarItem,
   SidebarItemGroup,
   SidebarItems,
 } from "flowbite-react";
@@ -29,112 +28,76 @@ import ThemeChange from "../../Pages/Shared/ThemeChange/ThemeChange";
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userRole } = useUserRole();
-
   const handleClose = () => setIsOpen(false);
 
-  // Sidebar contents reused for Drawer and Static Sidebar
+  const getNavStyle = ({ isActive }) =>
+    `flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white transition-colors group ${
+      isActive
+        ? "bg-gray-200 dark:bg-gray-700"
+        : "hover:bg-gray-200 dark:hover:bg-gray-700"
+    }`;
+
   const SidebarContent = () => (
     <Sidebar
       aria-label="Responsive Sidebar"
-      className="min-h-screen dark:bg-dark font-inter border-r-1 border-primary ">
-      {/* <form className="pb-3 md:hidden">
-        <TextInput
-          icon={HiSearch}
-          type="search"
-          placeholder="Search"
-          required
-          size={32}
-        />
-      </form> */}
-
+      className="min-h-screen dark:bg-dark font-inter border-r border-primary">
       <SidebarItems className="mx-0">
-        <Logo></Logo>
+        <Logo />
         <SidebarItemGroup className="flex flex-col">
-          {/* admin routes */}
           {userRole?.role === "admin" && (
             <>
-              <NavLink
-                to="/admin-profile"
-                className={`flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group`}>
+              <NavLink to="/admin-profile" className={getNavStyle}>
                 <FaUserShield className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 Admin Profile
               </NavLink>
-
-              <NavLink
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
-                to="/users">
+              <NavLink to="/users" className={getNavStyle}>
                 <FaUsers className="text-green-500 text-xl group-hover:text-green-600 transition-colors" />
                 Users List
               </NavLink>
-
-              <NavLink
-                to="/manage-members"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+              <NavLink to="/manage-members" className={getNavStyle}>
                 <FaUsersCog className="text-purple-500 text-xl group-hover:text-indigo-600 transition-colors" />
                 Manage Members
               </NavLink>
-
-              <NavLink
-                to="/make-announcement"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+              <NavLink to="/make-announcement" className={getNavStyle}>
                 <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
                 Make Announcement
               </NavLink>
-
-              <NavLink
-                to="/agreement-requests"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+              <NavLink to="/agreement-requests" className={getNavStyle}>
                 <FaFileSignature className="text-amber-500 text-xl group-hover:text-amber-600 transition-colors" />
                 Agreement Requests
               </NavLink>
-
-              <NavLink
-                to="/manage-coupons"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group">
+              <NavLink to="/manage-coupons" className={getNavStyle}>
                 <FaTicketAlt className="text-pink-500 text-xl group-hover:text-pink-600 transition-colors" />
                 Manage Coupons
               </NavLink>
             </>
           )}
 
-          {/* member or user routes */}
-
           {["user", "member"].includes(userRole?.role) && (
             <>
-              <NavLink
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group"
-                to="/profile">
+              <NavLink to="/dashboard/userProfile" className={getNavStyle}>
                 <FaUserCircle className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 My Profile
               </NavLink>
-
-              <NavLink
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group"
-                to="/announcements">
+              <NavLink to="/announcements" className={getNavStyle}>
                 <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
                 Announcements
               </NavLink>
             </>
           )}
-          {/* member routes */}
+
           {userRole?.role === "member" && (
             <>
-              <NavLink
-                to="/dashboard/payment"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
+              <NavLink to="/dashboard/payment" className={getNavStyle}>
                 <FaCreditCard className="text-purple-500 text-xl group-hover:text-purple-600 transition-colors" />
                 Make Payment
               </NavLink>
-
-              <NavLink
-                to="/payment-history"
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group">
+              <NavLink to="/payment-history" className={getNavStyle}>
                 <FaHistory className="text-rose-500 text-xl group-hover:text-rose-600 transition-colors" />
                 Payment History
               </NavLink>
             </>
           )}
-          {/* user routes */}
         </SidebarItemGroup>
 
         <SidebarItemGroup>
@@ -142,28 +105,20 @@ const Dashboard = () => {
             <p className="text-xl font-semibold dark:text-white">
               Change Theme :
             </p>
-            <ThemeChange></ThemeChange>
+            <ThemeChange />
           </div>
         </SidebarItemGroup>
       </SidebarItems>
-
-      {/* <div className="p-4 border-t mt-4">
-        <Button className="focus:outline-none focus:ring-0" size="xs" fullSized>
-          Toggle Dark Mode
-        </Button>
-      </div> */}
     </Sidebar>
   );
 
   return (
     <div className="dark:bg-dark w-screen border font-inter">
       <div className="min-h-screen max-w-[1700px] mx-auto flex flex-col lg:flex-row">
-        {/* Static Sidebar for lg+ */}
         <div className="hidden lg:block w-64 bg-white dark:bg-gray-800 border-r">
           <SidebarContent />
         </div>
 
-        {/* Navbar for md and smaller */}
         <nav className="lg:hidden w-full bg-white dark:bg-gray-800 p-4 flex items-center justify-between border-b">
           <Button size="sm" onClick={() => setIsOpen(true)}>
             <HiMenu className="w-5 h-5" />
@@ -171,12 +126,8 @@ const Dashboard = () => {
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             Dashboard
           </h1>
-          {/* <Button className="focus:outline-none focus:ring-0" size="sm">
-          🌓
-        </Button> */}
         </nav>
 
-        {/* Drawer for small screens */}
         <Drawer
           backdrop={true}
           open={isOpen}
@@ -188,9 +139,8 @@ const Dashboard = () => {
           </DrawerItems>
         </Drawer>
 
-        {/* Main content */}
         <div className="flex-1 bg-blue-100 dark:bg-dark/20 p-4">
-          <Outlet></Outlet>
+          <Outlet />
         </div>
       </div>
     </div>

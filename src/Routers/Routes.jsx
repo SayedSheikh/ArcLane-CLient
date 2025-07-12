@@ -11,6 +11,8 @@ import MakePayment from "../Pages/MakePayment/MakePayment";
 import PaymentPage from "../Pages/MakePayment/PaymentPage";
 import ApartmentsContainer from "../Pages/Apartment/ApartmentsContainer/ApartmentsContainer";
 import axios from "axios";
+import ForbiddenPage from "../Pages/ForbiddenPage/ForbiddenPage";
+import UserProfile from "../Pages/UserProfile/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,10 @@ export const router = createBrowserRouter([
         path: "appartment",
         Component: ApartmentsContainer,
         loader: () => axios.get("http://localhost:3000/countApartments"),
+      },
+      {
+        path: "forbidden",
+        Component: ForbiddenPage,
       },
     ],
   },
@@ -63,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: "paymentPage",
         Component: PaymentPage,
+      },
+      {
+        path: "userProfile",
+        Component: UserProfile,
       },
     ],
   },
