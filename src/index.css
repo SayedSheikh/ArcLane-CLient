@@ -7,6 +7,13 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --color-primary: #0082ce;
   --color-secondary: #f43098;

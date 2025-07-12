@@ -40,7 +40,7 @@ const Dashboard = () => {
   const SidebarContent = () => (
     <Sidebar
       aria-label="Responsive Sidebar"
-      className="min-h-screen dark:bg-dark font-inter border-r border-primary">
+      className="h-screen dark:bg-dark font-inter border-r border-primary overflow-y-auto">
       <SidebarItems className="mx-0">
         <Logo />
         <SidebarItemGroup className="flex flex-col">
@@ -79,7 +79,7 @@ const Dashboard = () => {
                 <FaUserCircle className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 My Profile
               </NavLink>
-              <NavLink to="/announcements" className={getNavStyle}>
+              <NavLink to="/dashboard/announcements" className={getNavStyle}>
                 <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
                 Announcements
               </NavLink>
@@ -113,9 +113,9 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="dark:bg-dark w-screen border font-inter">
-      <div className="min-h-screen max-w-[1700px] mx-auto flex flex-col lg:flex-row">
-        <div className="hidden lg:block w-64 bg-white dark:bg-gray-800 border-r">
+    <div className="dark:bg-dark  font-inter">
+      <div className="max-w-[1700px] mx-auto min-h-screen flex flex-col lg:flex-row overflow-visible relative">
+        <div className="hidden lg:block w-64 bg-white dark:bg-gray-800 border-r sticky top-0 h-full">
           <SidebarContent />
         </div>
 

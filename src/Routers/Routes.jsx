@@ -13,6 +13,9 @@ import ApartmentsContainer from "../Pages/Apartment/ApartmentsContainer/Apartmen
 import axios from "axios";
 import ForbiddenPage from "../Pages/ForbiddenPage/ForbiddenPage";
 import UserProfile from "../Pages/UserProfile/UserProfile";
+import Announcements from "../Pages/Announcements/Announcements";
+import UsersRoute from "../Routes/UsersRoute";
+import Loading1 from "../Pages/Loadings/Loading1";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +30,7 @@ export const router = createBrowserRouter([
         path: "appartment",
         Component: ApartmentsContainer,
         loader: () => axios.get("http://localhost:3000/countApartments"),
+        hydrateFallbackElement: <Loading1></Loading1>,
       },
       {
         path: "forbidden",
@@ -70,9 +74,25 @@ export const router = createBrowserRouter([
         path: "paymentPage",
         Component: PaymentPage,
       },
+
+      // user & member route
       {
         path: "userProfile",
-        Component: UserProfile,
+        element: (
+          <UsersRoute>
+            <UserProfile></UserProfile>
+          </UsersRoute>
+        ),
+      },
+      {
+        path: "announcements",
+        element: (
+          <UsersRoute>
+            <Announcements></Announcements>
+          </UsersRoute>
+        ),
+        loader: () => axios.get("http://localhost:3000/countAnnouncements"),
+        hydrateFallbackElement: <Loading1></Loading1>,
       },
     ],
   },

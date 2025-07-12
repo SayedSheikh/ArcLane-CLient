@@ -4,6 +4,7 @@ import ApartmentCard from "../ApartmentCard/ApartmentCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
 import { Spinner } from "flowbite-react"; // ✅ Import Flowbite Spinner
+import Skeletone from "../../Loadings/Skeletone";
 
 const ApartmentsContainer = () => {
   const aptNumber = useLoaderData();
@@ -63,7 +64,7 @@ const ApartmentsContainer = () => {
   };
 
   return (
-    <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 w-11/12 font-inter text-gray-900 dark:text-gray-200">
+    <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 pt-10 w-11/12 font-inter text-gray-900 dark:text-gray-200">
       {/* Heading */}
       <header className="max-w-3xl mx-auto text-center mb-16">
         <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
@@ -155,9 +156,10 @@ const ApartmentsContainer = () => {
           {/* ✅ Loading State */}
           {/* TODO:Add Spinner */}
           {isLoading ? (
-            <div className="col-span-full flex justify-center items-center h-[200px]">
-              <Spinner size="xl" color="indigo" />
-            </div>
+            <>
+              <Skeletone></Skeletone>
+              <Skeletone></Skeletone>
+            </>
           ) : isError ? (
             <div className="col-span-full text-center text-red-500 font-semibold">
               Something went wrong. Please try again later.
@@ -167,7 +169,7 @@ const ApartmentsContainer = () => {
               No apartments found matching your criteria.
             </div>
           ) : (
-            data.map((item) => (
+            data?.map((item) => (
               <ApartmentCard key={item._id} apartment={item} />
             ))
           )}
