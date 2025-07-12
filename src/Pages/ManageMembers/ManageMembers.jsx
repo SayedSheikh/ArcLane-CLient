@@ -4,17 +4,19 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useLoaderData } from "react-router";
 import { Button } from "flowbite-react";
+import Swal from "sweetalert2";
+import Loading2 from "../Loadings/Loading2";
+import { format } from "date-fns";
 
 const ManageMembers = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const numberOfUsers = useLoaderData();
+  const [totalData, setTotalData] = useState(numberOfUsers.data);
 
   const dataPerPage = 10;
-  const numberOfPages = Math.ceil(numberOfUsers.data / dataPerPage);
+  const numberOfPages = Math.ceil(totalData / dataPerPage);
   const pagesArray = [...Array(numberOfPages).keys()];
-  console.log(Math.ceil(numberOfUsers.data / dataPerPage));
-  console.log(numberOfUsers.data);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -41,6 +43,34 @@ const ManageMembers = () => {
       timeStyle: "short",
     });
 
+  const handleRemove = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This will permanently remove the member.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove!",
+    }).then(async (result) => {
+      // if (result.isConfirmed) {
+      //   try {
+      //     const res = await axiosSecure.delete(`/users/${id}`);
+      //     if (res.data?.deletedCount > 0) {
+      //       Swal.fire("Removed!", "The member has been removed.", "success");
+      //       setTotalData((prev) => prev - 1); // reduce total count
+      //       refetch(); // refetch member list
+      //     } else {
+      //       Swal.fire("Error", "Failed to remove the member.", "error");
+      //     }
+      //   } catch (err) {
+      //     console.error(err);
+      //     Swal.fire("Error", "Something went wrong.", "error");
+      //   }
+      // }
+    });
+  };
+
   return (
     <div className="p-4 space-y-3">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white text-center">
@@ -49,35 +79,30 @@ const ManageMembers = () => {
       <p className="text-gray-600 dark:text-gray-300 text-center">
         Browse all members with their activity and account details.
       </p>
-
-      {/* Table */}
-      <div className="overflow-x-auto mt-10 rounded-lg border border-primary/50 shadow-md bg-white max-w-[1000px] dark:bg-gray-900 mx-auto">
-        <table className=" w-full min-w-[800px] text-sm text-left text-gray-700 dark:text-gray-200">
-          <thead className="text-xs uppercase bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
-            <tr>
-              <th className="px-4 py-3">#</th>
-              <th className="px-4 py-3">Image</th>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Email</th>
-              <th className="px-4 py-3">Last Login</th>
-              <th className="px-4 py-3">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
+      {/* Table Section */}
+      {isLoading ? (
+        <div className="flex justify-center mt-10">
+          <Loading2 />
+        </div>
+      ) : users.length === 0 ? (
+        <p className="text-center py-10 text-gray-700 dark:text-gray-300 text-lg">
+          No member found.
+        </p>
+      ) : (
+        <div className="overflow-x-auto mt-10 rounded-lg border border-primary/50 shadow-md bg-white max-w-[1000px] dark:bg-gray-900 mx-auto">
+          <table className="w-full min-w-[800px] text-sm text-left text-gray-700 dark:text-gray-200">
+            <thead className="text-xs uppercase bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
               <tr>
-                <td colSpan="6" className="text-center py-8">
-                  Loading...
-                </td>
+                <th className="px-4 py-3">#</th>
+                <th className="px-4 py-3">Image</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Last Login</th>
+                <th className="px-4 py-3">Action</th>
               </tr>
-            ) : users.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="text-center py-8">
-                  No users found.
-                </td>
-              </tr>
-            ) : (
-              users.map((userItem, idx) => (
+            </thead>
+            <tbody>
+              {users.map((userItem, idx) => (
                 <tr
                   key={userItem._id}
                   className="border-b dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-800 transition">
@@ -92,21 +117,23 @@ const ManageMembers = () => {
                     />
                   </td>
                   <td className="px-4 py-3">{userItem.username}</td>
-
                   <td className="px-4 py-3">{userItem.email}</td>
-
                   <td className="px-4 py-3">
-                    {formatDate(userItem.lastLogin)}
+                    {format(formatDate(userItem.lastLogin), "PPpp")}
                   </td>
                   <td className="px-4 py-3">
-                    <Button>remove</Button>
+                    <Button
+                      className="bg-primary cursor-pointer"
+                      onClick={() => handleRemove(userItem._id)}>
+                      remove
+                    </Button>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* Pagination */}
       <div className="flex justify-center mt-6 flex-wrap gap-2">

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useLoaderData } from "react-router";
+import Loading2 from "../Loadings/Loading2";
+import { format } from "date-fns";
 
 const UsersList = () => {
   const { user } = useAuth();
@@ -28,11 +30,7 @@ const UsersList = () => {
     },
   });
 
-  const formatDate = (dateStr) =>
-    new Date(dateStr).toLocaleString("en-GB", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
+  const formatDate = (dateStr) => new Date(dateStr).toLocaleString();
 
   return (
     <div className="p-4 space-y-3">
@@ -43,37 +41,33 @@ const UsersList = () => {
         Browse all registered users with their activity and account details.
       </p>
 
-      {/* Table */}
-      <div className="overflow-x-auto mt-10 rounded-lg border border-primary/50 shadow-md bg-white max-w-[1000px] dark:bg-gray-900 mx-auto">
-        <table className=" w-full min-w-[800px] text-sm text-left text-gray-700 dark:text-gray-200">
-          <thead className="text-xs uppercase bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
-            <tr>
-              <th className="px-4 py-3">#</th>
-              <th className="px-4 py-3">Image</th>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Role</th>
-              <th className="px-4 py-3">Email</th>
-              <th className="px-4 py-3">Last Login</th>
-              <th className="px-4 py-3">Created At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
+      {/* Table Section */}
+      {isLoading ? (
+        <div className="flex justify-center mt-10">
+          <Loading2 />
+        </div>
+      ) : users.length === 0 ? (
+        <p className="text-center py-10 text-gray-700 dark:text-gray-300 text-lg">
+          No users found.
+        </p>
+      ) : (
+        <div className="overflow-x-auto mt-10 rounded-lg border border-primary/50 shadow-md bg-white max-w-[1000px] dark:bg-gray-900 mx-auto">
+          <table className="w-full min-w-[800px] text-sm text-left text-gray-700 dark:text-gray-200">
+            <thead className="text-xs uppercase bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
               <tr>
-                <td colSpan="6" className="text-center py-8">
-                  Loading...
-                </td>
+                <th className="px-4 py-3">#</th>
+                <th className="px-4 py-3">Image</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Role</th>
+                <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Last Login</th>
+                <th className="px-4 py-3">Created At</th>
               </tr>
-            ) : users.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="text-center py-8">
-                  No users found.
-                </td>
-              </tr>
-            ) : (
-              users.map((userItem, idx) => (
+            </thead>
+            <tbody>
+              {users.map((userItem, idx) => (
                 <tr
-                  key={idx}
+                  key={userItem._id}
                   className="border-b dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-800 transition">
                   <td className="px-4 py-3 font-medium">
                     {(currentPage - 1) * dataPerPage + idx + 1}
@@ -88,31 +82,30 @@ const UsersList = () => {
                   <td className="px-4 py-3">{userItem.username}</td>
                   <td className="px-4 py-3 font-semibold capitalize">
                     <span
-                      className={`px-2 py-1 text-xs rounded-md outline-1
-      ${
-        userItem.role === "admin"
-          ? "bg-blue-100 text-blue-600 outline-blue-600 "
-          : userItem.role === "member"
-          ? "bg-green-100 text-green-600 outline-gray-600 "
-          : "bg-gray-200 text-gray-600 outline-gray-600"
-      }`}>
+                      className={`px-2 py-1 text-xs rounded-md outline-1 ${
+                        userItem.role === "admin"
+                          ? "bg-blue-100 text-blue-700 outline-blue-700"
+                          : userItem.role === "member"
+                          ? "bg-green-100 text-green-700 outline-green-700"
+                          : "bg-gray-200 text-gray-700 outline-gray-700"
+                      }`}>
                       {userItem.role}
                     </span>
                   </td>
                   <td className="px-4 py-3">{userItem.email}</td>
-
                   <td className="px-4 py-3">
-                    {formatDate(userItem.lastLogin)}
+                    {format(formatDate(userItem.lastLogin), "PPpp")}
                   </td>
                   <td className="px-4 py-3">
-                    {formatDate(userItem.createdAt)}
+                    {/* {formatDate(userItem.createdAt)} */}
+                    {format(formatDate(userItem.createdAt), "PPpp")}
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* Pagination */}
       <div className="flex justify-center mt-6 flex-wrap gap-2">

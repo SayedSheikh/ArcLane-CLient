@@ -20,6 +20,7 @@ import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import AdminRoute from "../Routes/AdminRoute";
 import UsersList from "../Pages/UsersList/UsersList";
 import ManageMembers from "../Pages/ManageMembers/ManageMembers";
+import AgreementReq from "../Pages/AgreementReq/AgreementReq";
 
 export const router = createBrowserRouter([
   {
@@ -128,6 +129,14 @@ export const router = createBrowserRouter([
         loader: () =>
           axios.get("http://localhost:3000/countUsers?memberReq=memberReq"),
         hydrateFallbackElement: <Loading1></Loading1>,
+      },
+      {
+        path: "agreement-requests",
+        element: (
+          <AdminRoute>
+            <AgreementReq></AgreementReq>
+          </AdminRoute>
+        ),
       },
     ],
   },
