@@ -16,6 +16,10 @@ import UserProfile from "../Pages/UserProfile/UserProfile";
 import Announcements from "../Pages/Announcements/Announcements";
 import UsersRoute from "../Routes/UsersRoute";
 import Loading1 from "../Pages/Loadings/Loading1";
+import AdminProfile from "../Pages/AdminProfile/AdminProfile";
+import AdminRoute from "../Routes/AdminRoute";
+import UsersList from "../Pages/UsersList/UsersList";
+import ManageMembers from "../Pages/ManageMembers/ManageMembers";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +96,37 @@ export const router = createBrowserRouter([
           </UsersRoute>
         ),
         loader: () => axios.get("http://localhost:3000/countAnnouncements"),
+        hydrateFallbackElement: <Loading1></Loading1>,
+      },
+
+      // admin routes
+      {
+        path: "admin-profile",
+        element: (
+          <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AdminRoute>
+            <UsersList></UsersList>
+          </AdminRoute>
+        ),
+        loader: () => axios.get("http://localhost:3000/countUsers"),
+        hydrateFallbackElement: <Loading1></Loading1>,
+      },
+      {
+        path: "manage-members",
+        element: (
+          <AdminRoute>
+            <ManageMembers></ManageMembers>
+          </AdminRoute>
+        ),
+        loader: () =>
+          axios.get("http://localhost:3000/countUsers?memberReq=memberReq"),
         hydrateFallbackElement: <Loading1></Loading1>,
       },
     ],

@@ -43,30 +43,35 @@ const Dashboard = () => {
       className="h-screen dark:bg-dark font-inter border-r border-primary overflow-y-auto">
       <SidebarItems className="mx-0">
         <Logo />
+        {/* admin routes */}
         <SidebarItemGroup className="flex flex-col">
           {userRole?.role === "admin" && (
             <>
-              <NavLink to="/admin-profile" className={getNavStyle}>
+              <NavLink to="/dashboard/admin-profile" className={getNavStyle}>
                 <FaUserShield className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 Admin Profile
               </NavLink>
-              <NavLink to="/users" className={getNavStyle}>
+              <NavLink to="/dashboard/users" className={getNavStyle}>
                 <FaUsers className="text-green-500 text-xl group-hover:text-green-600 transition-colors" />
                 Users List
               </NavLink>
-              <NavLink to="/manage-members" className={getNavStyle}>
+              <NavLink to="/dashboard/manage-members" className={getNavStyle}>
                 <FaUsersCog className="text-purple-500 text-xl group-hover:text-indigo-600 transition-colors" />
                 Manage Members
               </NavLink>
-              <NavLink to="/make-announcement" className={getNavStyle}>
+              <NavLink
+                to="/dashboard/make-announcement"
+                className={getNavStyle}>
                 <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
                 Make Announcement
               </NavLink>
-              <NavLink to="/agreement-requests" className={getNavStyle}>
+              <NavLink
+                to="/dashboard/agreement-requests"
+                className={getNavStyle}>
                 <FaFileSignature className="text-amber-500 text-xl group-hover:text-amber-600 transition-colors" />
                 Agreement Requests
               </NavLink>
-              <NavLink to="/manage-coupons" className={getNavStyle}>
+              <NavLink to="/dashboard/manage-coupons" className={getNavStyle}>
                 <FaTicketAlt className="text-pink-500 text-xl group-hover:text-pink-600 transition-colors" />
                 Manage Coupons
               </NavLink>
@@ -139,7 +144,7 @@ const Dashboard = () => {
           </DrawerItems>
         </Drawer>
 
-        <div className="flex-1 bg-blue-100 dark:bg-dark/20 p-4">
+        <div className="flex-1 bg-white dark:bg-dark/20 p-4">
           <Outlet />
         </div>
       </div>
