@@ -5,12 +5,21 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Button } from "flowbite-react";
 import Swal from "sweetalert2";
 import Loading2 from "../Loadings/Loading2";
+import {
+  FaCalendarAlt,
+  FaCheck,
+  FaDollarSign,
+  FaMapMarkerAlt,
+  FaTimes,
+  FaUser,
+} from "react-icons/fa";
 
 const AgreementReq = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const [width, setWidth] = useState(window.innerWidth);
+  const [actionLoading, setActionLoading] = useState(null); // Track loading state per request
 
   useEffect(() => {
     const widthResize = () => {
@@ -34,6 +43,8 @@ const AgreementReq = () => {
   });
 
   const handleAction = async (agreementId, userEmail, actionType) => {
+    setActionLoading(agreementId);
+
     const confirm = await Swal.fire({
       title: `Are you sure to ${actionType}?`,
       icon: "question",
@@ -42,27 +53,31 @@ const AgreementReq = () => {
       confirmButtonColor: actionType === "accept" ? "#2563eb" : "#dc2626",
     });
 
-    if (confirm.isConfirmed) {
-      try {
-        const res = await axiosSecure.patch(`/agreements/${agreementId}`, {
-          action: actionType,
-          userEmail,
-        });
+    if (!confirm.isConfirmed) {
+      setActionLoading(null);
+      return;
+    }
 
-        if (res.data?.modifiedCount > 0) {
-          Swal.fire(
-            "Success!",
-            `Request ${actionType}ed successfully`,
-            "success"
-          );
-          refetch();
-        } else {
-          Swal.fire("Failed!", "Something went wrong.", "error");
-        }
-      } catch (err) {
-        console.error(err);
-        Swal.fire("Error!", "Server error occurred.", "error");
+    try {
+      const res = await axiosSecure.patch(
+        `/updateAgStatus/${user?.email}/${agreementId}?actionType=${actionType}`
+      );
+
+      if (res?.data?.modifiedCount > 0) {
+        Swal.fire(
+          "Success!",
+          `Request ${actionType}ed successfully`,
+          "success"
+        );
+        refetch();
+      } else {
+        Swal.fire("Failed!", "Something went wrong.", "error");
       }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error!", "Server error occurred.", "error");
+    } finally {
+      setActionLoading(null);
     }
   };
 
@@ -79,9 +94,14 @@ const AgreementReq = () => {
 
   if (requests.length === 0) {
     return (
-      <p className="text-center py-8 dark:text-white">
-        No agreement requests found.
-      </p>
+      <div className="text-center py-12">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          No Pending Requests
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400">
+          All agreement requests have been processed.
+        </p>
+      </div>
     );
   }
 
@@ -93,10 +113,12 @@ const AgreementReq = () => {
       <p className="text-center text-gray-600 dark:text-gray-300">
         Review and manage apartment agreement requests.
       </p>
+      <p className="text-base text-secondary">
+        Pending Requests: {requests.length}
+      </p>
 
       {width > 950 ? (
-        // Table View
-        <div className="overflow-x-auto rounded-lg border border-primary/50 shadow-md bg-white dark:bg-gray-900 mt-6">
+        <div className="overflow-x-auto rounded-md border border-primary/50 shadow-md bg-white dark:bg-gray-900 mt-6">
           <table className="w-full min-w-[900px] text-sm text-left text-gray-700 dark:text-gray-200">
             <thead className="text-xs uppercase bg-blue-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
               <tr>
@@ -122,26 +144,28 @@ const AgreementReq = () => {
                   <td className="px-4 py-3">{req.floorNo}</td>
                   <td className="px-4 py-3">{req.blockName}</td>
                   <td className="px-4 py-3">{req.apartmentNo}</td>
-                  <td className="px-4 py-3"> {req.rent.toLocaleString()}$</td>
+                  <td className="px-4 py-3">৳ {req.rent.toLocaleString()}</td>
                   <td className="px-4 py-3">{formatDate(req.reqDate)}</td>
                   <td className="px-4 py-3 space-x-2 flex">
                     <Button
                       className="cursor-pointer"
                       size="xs"
                       color="blue"
+                      disabled={actionLoading === req._id}
                       onClick={() =>
-                        handleAction(req._id, req.email, "accept")
+                        handleAction(req._id, req.reqEmail, "accept")
                       }>
-                      Accept
+                      {actionLoading === req._id ? "Processing..." : "Accept"}
                     </Button>
                     <Button
                       className="cursor-pointer"
                       size="xs"
                       color="red"
+                      disabled={actionLoading === req._id}
                       onClick={() =>
-                        handleAction(req._id, req.email, "reject")
+                        handleAction(req._id, req.reqEmail, "reject")
                       }>
-                      Reject
+                      {actionLoading === req._id ? "Processing..." : "Reject"}
                     </Button>
                   </td>
                 </tr>
@@ -150,61 +174,75 @@ const AgreementReq = () => {
           </table>
         </div>
       ) : (
-        // Card View for smaller widths
-        <div className="space-y-4 mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {requests.map((req, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {requests.map((req) => (
             <div
               key={req._id}
-              className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 border border-gray-300 dark:border-gray-700 h-full">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-semibold dark:text-white">
-                    {req.reqUser}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {req.reqEmail}
-                  </p>
-                </div>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  #{idx + 1}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 mt-3 text-gray-700 dark:text-gray-300 text-sm">
-                <div>
-                  <span className="font-semibold">Floor:</span> {req.floorNo}
-                </div>
-                <div>
-                  <span className="font-semibold">Block:</span> {req.blockName}
-                </div>
-                <div>
-                  <span className="font-semibold">Room:</span> {req.apartmentNo}
-                </div>
-                <div>
-                  <span className="font-semibold">Rent:</span>{" "}
-                  {req.rent.toLocaleString()}$
-                </div>
-                <div>
-                  <span className="font-semibold">Requested:</span>{" "}
-                  {formatDate(req.reqDate)}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-100 p-2 rounded-lg">
+                    <FaUser className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {req.reqUser}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {req.reqEmail}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-4 flex space-x-3">
-                <Button
-                  className="cursor-pointer"
-                  size="sm"
-                  color="blue"
-                  onClick={() => handleAction(req._id, req.email, "accept")}>
-                  Accept
-                </Button>
-                <Button
-                  className="cursor-pointer"
-                  size="sm"
-                  color="red"
-                  onClick={() => handleAction(req._id, req.email, "reject")}>
-                  Reject
-                </Button>
+              <div className="space-y-3 mb-6 text-sm text-gray-700 dark:text-gray-300">
+                <div className="flex items-center">
+                  <FaMapMarkerAlt className="mr-2" />
+                  <span>
+                    Floor {req.floorNo}, Block {req.blockName}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="h-4 w-4 mr-2 flex items-center justify-center">
+                    🏠
+                  </span>
+                  <span>Room {req.apartmentNo}</span>
+                </div>
+                <div className="flex items-center">
+                  <FaDollarSign className="mr-2" />
+                  <span className="text-green-600 font-semibold">
+                    ৳ {req.rent.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <FaCalendarAlt className="mr-2" />
+                  <span>Requested on {formatDate(req.reqDate)}</span>
+                </div>
+              </div>
+
+              <div className="flex gap-3 flex-col sm:flex-row">
+                <button
+                  onClick={() => handleAction(req._id, req.reqEmail, "accept")}
+                  disabled={actionLoading === req._id}
+                  className={`flex-1 flex items-center justify-center px-4 py-2 text-white rounded-lg transition duration-200 cursor-pointer ${
+                    actionLoading === req._id
+                      ? "bg-green-400 cursor-not-allowed"
+                      : "bg-green-600 hover:bg-green-700"
+                  }`}>
+                  <FaCheck className="h-4 w-4 mr-2" />
+                  {actionLoading === req._id ? "Processing..." : "Accept"}
+                </button>
+                <button
+                  onClick={() => handleAction(req._id, req.reqEmail, "reject")}
+                  disabled={actionLoading === req._id}
+                  className={`flex-1 flex items-center justify-center px-4 py-2 text-white rounded-lg transition duration-200 cursor-pointer ${
+                    actionLoading === req._id
+                      ? "bg-red-400 cursor-not-allowed"
+                      : "bg-red-600 hover:bg-red-700"
+                  }`}>
+                  <FaTimes className="h-4 w-4 mr-2" />
+                  {actionLoading === req._id ? "Processing..." : "Reject"}
+                </button>
               </div>
             </div>
           ))}
