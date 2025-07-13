@@ -13,11 +13,11 @@ const ManageMembers = () => {
   const axiosSecure = useAxiosSecure();
   const numberOfUsers = useLoaderData();
   const [totalData, setTotalData] = useState(numberOfUsers.data);
+  const [removingId, setRemovingId] = useState(null); // NEW
 
   const dataPerPage = 10;
   const numberOfPages = Math.ceil(totalData / dataPerPage);
   const pagesArray = [...Array(numberOfPages).keys()];
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const {
@@ -53,21 +53,24 @@ const ManageMembers = () => {
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, remove!",
     }).then(async (result) => {
-      // if (result.isConfirmed) {
-      //   try {
-      //     const res = await axiosSecure.delete(`/users/${id}`);
-      //     if (res.data?.deletedCount > 0) {
-      //       Swal.fire("Removed!", "The member has been removed.", "success");
-      //       setTotalData((prev) => prev - 1); // reduce total count
-      //       refetch(); // refetch member list
-      //     } else {
-      //       Swal.fire("Error", "Failed to remove the member.", "error");
-      //     }
-      //   } catch (err) {
-      //     console.error(err);
-      //     Swal.fire("Error", "Something went wrong.", "error");
-      //   }
-      // }
+      if (result.isConfirmed) {
+        try {
+          setRemovingId(id); // SET LOADING
+          const res = await axiosSecure.patch(`/remove/${user.email}/${id}`);
+          if (res.data?.modifiedCount > 0) {
+            Swal.fire("Removed!", "The member has been removed.", "success");
+            setTotalData((prev) => prev - 1); // update count
+            refetch(); // refetch updated data
+          } else {
+            Swal.fire("Error", "Failed to remove the member.", "error");
+          }
+        } catch (err) {
+          console.error(err);
+          Swal.fire("Error", "Something went wrong.", "error");
+        } finally {
+          setRemovingId(null); // RESET LOADING
+        }
+      }
     });
   };
 
@@ -79,7 +82,7 @@ const ManageMembers = () => {
       <p className="text-gray-600 dark:text-gray-300 text-center">
         Browse all members with their activity and account details.
       </p>
-      {/* Table Section */}
+
       {isLoading ? (
         <div className="flex justify-center mt-10">
           <Loading2 />
@@ -112,7 +115,7 @@ const ManageMembers = () => {
                   <td className="px-4 py-3">
                     <img
                       src={userItem.imgUrl}
-                      alt="user"
+                      alt="member"
                       className="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"
                     />
                   </td>
@@ -124,8 +127,9 @@ const ManageMembers = () => {
                   <td className="px-4 py-3">
                     <Button
                       className="bg-primary cursor-pointer"
-                      onClick={() => handleRemove(userItem._id)}>
-                      remove
+                      onClick={() => handleRemove(userItem._id)}
+                      disabled={removingId === userItem._id}>
+                      {removingId === userItem._id ? "Removing..." : "Remove"}
                     </Button>
                   </td>
                 </tr>
