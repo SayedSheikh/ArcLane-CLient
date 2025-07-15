@@ -94,7 +94,7 @@ const AgreementReq = () => {
 
   if (requests.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center py-12 font-inter">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
           No Pending Requests
         </h3>
@@ -106,7 +106,7 @@ const AgreementReq = () => {
   }
 
   return (
-    <div className="p-4 space-y-4 max-w-[1200px] mx-auto">
+    <div className="p-4 space-y-4 max-w-[1200px] mx-auto font-inter">
       <h2 className="text-3xl font-bold text-center dark:text-white">
         Agreement Requests
       </h2>

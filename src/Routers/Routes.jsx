@@ -21,6 +21,10 @@ import AdminRoute from "../Routes/AdminRoute";
 import UsersList from "../Pages/UsersList/UsersList";
 import ManageMembers from "../Pages/ManageMembers/ManageMembers";
 import AgreementReq from "../Pages/AgreementReq/AgreementReq";
+import MakeAnnouncement from "../Pages/MakeAnnouncement/MakeAnnouncement";
+import ManageCoupons from "../Pages/ManageCoupons/ManageCoupons";
+import MemberRoute from "../Routes/MemberRoute";
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -70,16 +74,34 @@ export const router = createBrowserRouter([
         index: true,
         Component: DashBoardHome,
       },
-      // user route TODO: make user route
+      // user route TODO: make member route
       {
         path: "payment",
-        Component: MakePayment,
+
+        element: (
+          <MemberRoute>
+            <MakePayment></MakePayment>
+          </MemberRoute>
+        ),
       },
       {
         path: "paymentPage",
-        Component: PaymentPage,
+
+        element: (
+          <MemberRoute>
+            <PaymentPage></PaymentPage>
+          </MemberRoute>
+        ),
       },
 
+      {
+        path: "payment-history",
+        element: (
+          <MemberRoute>
+            <PaymentHistory></PaymentHistory>
+          </MemberRoute>
+        ),
+      },
       // user & member route
       {
         path: "userProfile",
@@ -135,6 +157,22 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AgreementReq></AgreementReq>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "make-announcements",
+        element: (
+          <AdminRoute>
+            <MakeAnnouncement></MakeAnnouncement>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-coupons",
+        element: (
+          <AdminRoute>
+            <ManageCoupons></ManageCoupons>
           </AdminRoute>
         ),
       },

@@ -60,7 +60,7 @@ const Dashboard = () => {
                 Manage Members
               </NavLink>
               <NavLink
-                to="/dashboard/make-announcement"
+                to="/dashboard/make-announcements"
                 className={getNavStyle}>
                 <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
                 Make Announcement
@@ -97,7 +97,7 @@ const Dashboard = () => {
                 <FaCreditCard className="text-purple-500 text-xl group-hover:text-purple-600 transition-colors" />
                 Make Payment
               </NavLink>
-              <NavLink to="/payment-history" className={getNavStyle}>
+              <NavLink to="/dashboard/payment-history" className={getNavStyle}>
                 <FaHistory className="text-rose-500 text-xl group-hover:text-rose-600 transition-colors" />
                 Payment History
               </NavLink>

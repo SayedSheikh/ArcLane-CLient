@@ -1,71 +1,104 @@
 import React from "react";
 import useAuth from "../../Hooks/useAuth";
+import {
+  HiOutlineMail,
+  HiOutlineCalendar,
+  HiOutlineHome,
+  HiOutlineMap,
+  HiOutlineCurrencyDollar,
+} from "react-icons/hi";
+import useAptInfo from "../../Hooks/useAptInfo";
+import Loading1 from "../Loadings/Loading1";
 
 const UserProfile = () => {
   const { user } = useAuth();
+  const { apartment, aptInfoLoading } = useAptInfo();
 
+  // const role = location?.state?.role || "";
+
+  if (aptInfoLoading) {
+    return <Loading1></Loading1>;
+  }
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12 font-inter">
-      {/* Heading outside card */}
-      <div className="text-center mb-8">
-        <h2 className="text-4xl font-extrabold text-gray-800 dark:text-white">
-          My Profile
-        </h2>
-        <p className="mt-2 text-gray-500 dark:text-gray-400 text-sm">
-          Review your profile and apartment details below.
-        </p>
-      </div>
-
-      {/* Card */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-8 space-y-8">
-        {/* User Info Section */}
-        <div className="flex flex-col md:flex-row md:items-center gap-8">
-          {/* Profile image */}
-          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-500 shadow shrink-0 mx-auto">
-            <img
-              src={
-                user?.photoURL || "https://i.ibb.co/2t8Q1hF/default-avatar.png"
-              }
-              alt="Profile"
-              className="object-cover w-full h-full"
-            />
-          </div>
-
-          {/* User text info */}
-          <div className="flex flex-col justify-center gap-3 text-base w-full">
-            <p className="text-gray-700 dark:text-gray-300 text-center md:text-start">
-              <span className="font-semibold">Name:</span>{" "}
-              {user?.displayName || "N/A"}
-            </p>
-            <p className="text-gray-700 dark:text-gray-300 text-center md:text-start">
-              <span className="font-semibold">Email:</span>{" "}
-              {user?.email || "N/A"}
-            </p>
+    <div className="max-w-4xl mx-auto px-4 py-8 font-inter pt-10">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg">
+        {/* Gradient Header */}
+        <div className="relative bg-gradient-to-r from-indigo-500 to-blue-500 h-35 flex items-center rounded-t-xl">
+          {/* Profile Image */}
+          <div className="px-6 md:px-12">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
+              <img
+                src={
+                  user?.photoURL ||
+                  "https://i.ibb.co/2t8Q1hF/default-avatar.png"
+                }
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <hr className="border-gray-300 dark:border-gray-700" />
+        {/* Content */}
+        <div className="pt-16 pb-8 px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Personal Info */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                Personal Information
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
+                  <HiOutlineMail className="text-xl shrink-0 text-gray-600 dark:text-gray-300" />
+                  <span
+                    title={user?.email || "Email"}
+                    className="text-gray-700 dark:text-gray-200 truncate max-w-[200px]">
+                    {user?.email || "Email"}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
+                  <HiOutlineCalendar className="text-xl text-gray-600 dark:text-gray-300 shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-200">
+                    <span className="font-medium">Agreement Date:</span>{" "}
+                    {apartment === "none"
+                      ? "None"
+                      : new Date(apartment.agreementDate).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+            </div>
 
-        {/* Apartment Info Section */}
-        <div>
-          <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-5">
-            Apartment Information
-          </h4>
-
-          <div className="grid sm:grid-cols-2 gap-2 text-base">
-            <p className="text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Agreement Date:</span> None
-            </p>
-            <p className="text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Floor No:</span> None
-            </p>
-            <p className="text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Block:</span> None
-            </p>
-            <p className="text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Room Number:</span> None
-            </p>
+            {/* Apartment Info */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                Apartment Information
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
+                  <HiOutlineHome className="text-xl text-gray-600 dark:text-gray-300" />
+                  <span className="text-gray-700 dark:text-gray-200">
+                    <span className="font-medium">Floor:</span>{" "}
+                    {apartment === "none" ? "None" : apartment.floorNo}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
+                  <HiOutlineMap className="text-xl text-gray-600 dark:text-gray-300" />
+                  <span className="text-gray-700 dark:text-gray-200">
+                    <span className="font-medium">Block & Apartment:</span>{" "}
+                    {apartment === "none" ? "None" : apartment.apartmentNo}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
+                  <HiOutlineCurrencyDollar className="text-xl text-gray-600 dark:text-gray-300" />
+                  <span className="text-gray-700 dark:text-gray-200">
+                    <span className="font-medium">Monthly Rent:</span>{" "}
+                    {apartment === "none"
+                      ? "None"
+                      : apartment.rent.toLocaleString() + "$"}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

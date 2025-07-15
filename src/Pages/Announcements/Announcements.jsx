@@ -75,8 +75,6 @@ const Announcements = () => {
     },
   });
 
-  console.log(announcementsData);
-
   const toDateFormat = (date) => {
     const formattedDate = new Date(date);
     return formattedDate;
