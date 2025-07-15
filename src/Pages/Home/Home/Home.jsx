@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "../Hero/Hero";
 import AboutBuilding from "../AboutBuilding/AboutBuilding";
 import Amenities from "../Amenities/Amenities";
+import SpecialOffers from "../SpecialOffers/SpecialOffers";
 // import useAuth from "../../../Hooks/useAuth";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
       <Hero />
       <AboutBuilding />
       <Amenities />
+      <SpecialOffers />
     </div>
   );
 };
