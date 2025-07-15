@@ -82,72 +82,85 @@ const MakeAnnouncement = () => {
   };
 
   return (
-    <div className="max-w-3xl mt-20 mx-auto p-6 bg-white dark:bg-gray-900 shadow-md rounded-xl border border-primary/50 font-inter">
-      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">
-        Make an Announcement
-      </h2>
+    <div className="py-12 px-4 sm:px-8 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl p-8">
+        <h2 className="text-3xl font-extrabold text-center text-gray-800 dark:text-white mb-8">
+          📣 Make an Announcement
+        </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Title */}
-        <div>
-          <label
-            htmlFor="title"
-            className="block mb-2 text-base font-medium text-gray-700 dark:text-gray-300">
-            <div className="flex items-center gap-2">
-              <FaBullhorn className="text-blue-500" />
-              <span>Title</span>
-            </div>
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={announcement.title}
-            onChange={handleChange}
-            placeholder="Enter announcement title"
-            className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Title */}
+          <div>
+            <label
+              htmlFor="title"
+              className="block mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-2">
+                <FaBullhorn className="text-blue-600" />
+                Title
+              </div>
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={announcement.title}
+              onChange={handleChange}
+              placeholder="Exciting news or important update..."
+              className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              required
+            />
+          </div>
 
-        {/* Description */}
-        <div>
-          <label
-            htmlFor="description"
-            className="block mb-2 text-base font-medium text-gray-700 dark:text-gray-300">
-            <div className="flex items-center gap-2">
-              <FaAlignLeft className="text-blue-500" />
-              <span>Description</span>
-            </div>
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={announcement.description}
-            onChange={handleChange}
-            rows="5"
-            placeholder="Enter announcement details"
-            className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
+          {/* Description */}
+          <div>
+            <label
+              htmlFor="description"
+              className="block mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-2">
+                <FaAlignLeft className="text-blue-600" />
+                Description
+              </div>
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={announcement.description}
+              onChange={handleChange}
+              rows="5"
+              placeholder="Provide details of the announcement here..."
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              required
+            />
+          </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isPending}
-          className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200 ${
-            isPending ? "opacity-60 cursor-not-allowed" : ""
-          }`}>
-          {isPending ? "Posting..." : "Post Announcement"}
-        </button>
-      </form>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isPending}
+            className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-md transition-all duration-200 ${
+              isPending ? "opacity-60 cursor-not-allowed" : ""
+            }`}>
+            {isPending ? "Posting..." : "Post Announcement"}
+          </button>
 
-      {isError && (
-        <p className="text-red-500 mt-4 text-center">
-          {error?.message || "Failed to post announcement"}
+          {isError && (
+            <p className="text-center text-red-600 font-medium">
+              {error?.message || "Something went wrong."}
+            </p>
+          )}
+        </form>
+      </div>
+
+      {/* Preview Box */}
+      <div className="max-w-3xl mx-auto mt-8 bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 p-4 rounded-lg">
+        <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2">
+          🔎 Preview
+        </h3>
+        <p className="text-sm text-blue-700 dark:text-blue-300">
+          This announcement will be visible to all residents on their
+          dashboards. Ensure it's clear, concise, and helpful.
         </p>
-      )}
+      </div>
     </div>
   );
 };
