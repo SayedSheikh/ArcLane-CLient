@@ -17,6 +17,7 @@ import {
 import { FaShield } from "react-icons/fa6";
 import { FaShieldAlt } from "react-icons/fa";
 import CountUp from "react-countup";
+import { useNavigate } from "react-router";
 
 const slides = [
   {
@@ -38,6 +39,7 @@ const slides = [
 
 const Hero = () => {
   const [width, setWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -85,7 +87,11 @@ const Hero = () => {
                   <Button className="cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
                     Explore Apartments
                   </Button>
-                  <Button className="bg-white dark:bg-white cursor-pointer text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-200 transition">
+                  <Button
+                    onClick={() => {
+                      navigate("/contactUs");
+                    }}
+                    className="bg-white dark:bg-white cursor-pointer text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-200 transition">
                     Contact Us
                   </Button>
                 </div>
