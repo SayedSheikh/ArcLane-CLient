@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import useAxios from "../../../Hooks/useAxios";
 import CouponCard from "./CouponCard";
 import { FaGift } from "react-icons/fa";
+import { Link } from "react-router";
 
 const SpecialOffers = () => {
   const axios = useAxios();
@@ -54,9 +55,11 @@ const SpecialOffers = () => {
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
             Have a coupon code? Apply it during payment to get instant savings!
           </p>
-          <button className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-medium px-6 py-2 rounded hover:opacity-90 transition cursor-pointer">
+          <Link
+            to="/allCoupons"
+            className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-medium px-6 py-2 rounded hover:opacity-90 transition cursor-pointer">
             View All Offers
-          </button>
+          </Link>
         </div>
       </div>
     </section>

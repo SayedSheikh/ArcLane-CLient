@@ -9,7 +9,7 @@ import {
 } from "flowbite-react";
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigation } from "react-router";
 import Logo from "../../Pages/Shared/Logo/Logo";
 import useUserRole from "../../Hooks/useUserRole";
 import {
@@ -24,11 +24,14 @@ import {
   FaUserShield,
 } from "react-icons/fa";
 import ThemeChange from "../../Pages/Shared/ThemeChange/ThemeChange";
+import Loading1 from "../../Pages/Loadings/Loading1";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userRole } = useUserRole();
   const handleClose = () => setIsOpen(false);
+
+  const navigation = useNavigation();
 
   const getNavStyle = ({ isActive }) =>
     `flex items-center gap-2 px-3 py-2 rounded-md font-semibold dark:text-white transition-colors group ${
@@ -145,7 +148,7 @@ const Dashboard = () => {
         </Drawer>
 
         <div className="flex-1 bg-white dark:bg-dark/20 p-4">
-          <Outlet />
+          {navigation.state === "loading" ? <Loading1></Loading1> : <Outlet />}
         </div>
       </div>
     </div>

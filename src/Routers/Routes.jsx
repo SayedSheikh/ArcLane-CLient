@@ -29,6 +29,7 @@ import ContactUs from "../Pages/ContactUs/ContactUs";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import Terms from "../Pages/Terms/Terms";
+import AllCoupons from "../Pages/AllCoupons/AllCoupons";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "terms-conditions",
         Component: Terms,
+      },
+      {
+        path: "allCoupons",
+        Component: AllCoupons,
       },
     ],
   },
