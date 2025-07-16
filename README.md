@@ -1,4 +1,3 @@
-````markdown
 # Arclane 🏢 – Building Management Web App
 
 Arclane is a feature-rich building management system built with **React**, **Firebase**, **Node.js**, **Express**, **MongoDB**, and **Tailwind CSS** (with **Flowbite**). It offers role-based dashboards and functionality for Admins, Members, and Users — managing apartments, payments, announcements, users, and much more.
@@ -47,7 +46,6 @@ Arclane is a feature-rich building management system built with **React**, **Fir
 git clone https://github.com/SayedSheikh/arclane.git
 cd arclane
 ```
-````
 
 ### 📦 Install Dependencies
 
