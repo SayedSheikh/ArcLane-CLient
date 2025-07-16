@@ -13,7 +13,7 @@ const MainLayout = () => {
     <div className="font-inter">
       <ScrollToTop />
       <CustomeNavbar />
-      <div className="min-h-[calc(100vh-60px)] dark:bg-[#030712]">
+      <div className=" dark:bg-[#030712]">
         {navigation.state === "loading" ? <Loading1></Loading1> : <Outlet />}
       </div>
       <CustomFooter />

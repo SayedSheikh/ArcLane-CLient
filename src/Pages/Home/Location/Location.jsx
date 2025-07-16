@@ -37,7 +37,7 @@ const Location = () => {
   const position = [23.8103, 90.4125]; // Example: Dhaka, Bangladesh
 
   return (
-    <section className="bg-white dark:bg-gray-900 py-16 px-4 font-inter">
+    <section className="overflow-x-hidden bg-white dark:bg-gray-900 py-16 px-4 font-inter">
       <div className="max-w-6xl mx-auto">
         {/* Heading and description */}
         <div className="text-center mb-12">

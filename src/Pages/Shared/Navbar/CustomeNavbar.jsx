@@ -6,9 +6,7 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { Link, NavLink } from "react-router";
-import "./navbar.css";
+import { Link, NavLink } from "react-router"; // ✅ Make sure you're using 'react-router-dom'
 import Logo from "../Logo/Logo";
 import CustomAvatar from "../Avatar/CustomAvatar";
 import useAuth from "../../../Hooks/useAuth";
@@ -18,44 +16,60 @@ const CustomeNavbar = () => {
   const { user } = useAuth();
 
   return (
-    <div className="bg-white dark:bg-[#030712] shadow-sm shadow-primary/50 sticky top-0  backdrop-blur-sm z-10">
-      <Navbar
-        fluid
-        rounded
-        className="dark:bg-[#030712] max-w-[1500px] mx-auto">
-        <NavbarBrand>
-          {/* Logo or App Name */}
-          <Logo></Logo>
+    <div className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-[#030712] backdrop-blur shadow-sm shadow-primary/30">
+      <Navbar fluid className="max-w-[1500px] mx-auto dark:bg-[#030712]">
+        <NavbarBrand as={Link} to="/">
+          <Logo />
         </NavbarBrand>
-        <div className="flex md:order-2 items-center gap-2">
-          <ThemeChange></ThemeChange>
+
+        <div className="flex items-center gap-2 md:order-2">
+          <ThemeChange />
 
           {user ? (
             <CustomAvatar />
           ) : (
             <Link to="/login">
-              <Button className="hidden md:block cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
-                LogIn
+              <Button
+                size="sm"
+                className="hidden md:block bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90 cursor-pointer">
+                Login
               </Button>
             </Link>
           )}
 
           <NavbarToggle />
         </div>
+
         <NavbarCollapse className="dark:text-white">
-          {/* <NavbarLink href="#" active>
-            Home
-          </NavbarLink> */}
-          <NavLink to="/" className="px-1">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `px-3 py-2 rounded ${
+                isActive ? "text-primary font-semibold" : ""
+              }`
+            }>
             Home
           </NavLink>
-          <NavLink to="/apartment" className="px-1">
+          <NavLink
+            to="/apartment"
+            className={({ isActive }) =>
+              `px-3 py-2 rounded ${
+                isActive ? "text-primary font-semibold" : ""
+              }`
+            }>
             Apartment
           </NavLink>
 
-          <Button className="block md:hidden mt-2 cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
-            LogIn
-          </Button>
+          {/* Show login on mobile only if not logged in */}
+          {!user && (
+            <Link to="/login" className="block md:hidden w-full mt-2">
+              <Button
+                size="sm"
+                className="w-full bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
+                Login
+              </Button>
+            </Link>
+          )}
         </NavbarCollapse>
       </Navbar>
     </div>

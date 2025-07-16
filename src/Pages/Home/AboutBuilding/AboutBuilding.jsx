@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutBuilding = () => {
   return (
-    <section className="px-4 py-16 max-w-7xl mx-auto font-inter text-gray-800 dark:text-gray-200">
+    <section className=" overflow-x-hidden px-4 py-16 max-w-7xl mx-auto font-inter text-gray-800 dark:text-gray-200">
       {/* Main Heading & Intro */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-extrabold tracking-tight mb-4 text-primary">
