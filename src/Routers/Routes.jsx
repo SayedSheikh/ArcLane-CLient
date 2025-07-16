@@ -27,6 +27,8 @@ import MemberRoute from "../Routes/MemberRoute";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
+import Terms from "../Pages/Terms/Terms";
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +41,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "appartment",
+        path: "apartment",
         Component: ApartmentsContainer,
         loader: () => axios.get("http://localhost:3000/countApartments"),
         hydrateFallbackElement: <Loading1></Loading1>,
@@ -51,6 +53,14 @@ export const router = createBrowserRouter([
       {
         path: "contactUs",
         Component: ContactUs,
+      },
+      {
+        path: "privacy-policy",
+        Component: PrivacyPolicy,
+      },
+      {
+        path: "terms-conditions",
+        Component: Terms,
       },
     ],
   },

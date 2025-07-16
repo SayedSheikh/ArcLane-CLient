@@ -49,8 +49,8 @@ const CustomeNavbar = () => {
           <NavLink to="/" className="px-1">
             Home
           </NavLink>
-          <NavLink to="/appartment" className="px-1">
-            Appartment
+          <NavLink to="/apartment" className="px-1">
+            Apartment
           </NavLink>
 
           <Button className="block md:hidden mt-2 cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
