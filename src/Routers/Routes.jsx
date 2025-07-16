@@ -26,11 +26,13 @@ import ManageCoupons from "../Pages/ManageCoupons/ManageCoupons";
 import MemberRoute from "../Routes/MemberRoute";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import ContactUs from "../Pages/ContactUs/ContactUs";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,

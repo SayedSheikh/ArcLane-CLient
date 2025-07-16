@@ -84,7 +84,11 @@ const Hero = () => {
 
                 {/* Buttons */}
                 <div className="flex flex-wrap justify-center gap-4 mb-10">
-                  <Button className="cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
+                  <Button
+                    onClick={() => {
+                      navigate("/appartment");
+                    }}
+                    className="cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
                     Explore Apartments
                   </Button>
                   <Button
