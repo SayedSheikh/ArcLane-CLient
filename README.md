@@ -145,23 +145,7 @@ Visit [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
-## 🧑‍💻 Developer
-
-**Md Sayed Sheikh**
-🎓 CSE Student | Full Stack Developer
-🔗 [GitHub Profile](https://github.com/SayedSheikh)
-
----
-
-## 📃 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 Feel free to ⭐️ the repo if you found it helpful!
-
-```
 
 ---
 
@@ -172,4 +156,3 @@ Feel free to ⭐️ the repo if you found it helpful!
 - Deployment guide (e.g. Firebase + Vercel combo)
 
 I can generate that too!
-```
