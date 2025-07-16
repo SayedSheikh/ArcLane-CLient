@@ -30,6 +30,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import Terms from "../Pages/Terms/Terms";
 import AllCoupons from "../Pages/AllCoupons/AllCoupons";
+import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +45,8 @@ export const router = createBrowserRouter([
       {
         path: "apartment",
         Component: ApartmentsContainer,
-        loader: () => axios.get("http://localhost:3000/countApartments"),
+        loader: () =>
+          axios.get("https://arc-lane-server.vercel.app/countApartments"),
         hydrateFallbackElement: <Loading1></Loading1>,
       },
       {
@@ -66,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: "allCoupons",
         Component: AllCoupons,
+      },
+      {
+        path: "forgot-password",
+        Component: ForgotPassword,
       },
     ],
   },
@@ -140,7 +146,8 @@ export const router = createBrowserRouter([
             <Announcements></Announcements>
           </UsersRoute>
         ),
-        loader: () => axios.get("http://localhost:3000/countAnnouncements"),
+        loader: () =>
+          axios.get("https://arc-lane-server.vercel.app/countAnnouncements"),
         hydrateFallbackElement: <Loading1></Loading1>,
       },
 
@@ -160,7 +167,8 @@ export const router = createBrowserRouter([
             <UsersList></UsersList>
           </AdminRoute>
         ),
-        loader: () => axios.get("http://localhost:3000/countUsers"),
+        loader: () =>
+          axios.get("https://arc-lane-server.vercel.app/countUsers"),
         hydrateFallbackElement: <Loading1></Loading1>,
       },
       {
@@ -171,7 +179,9 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
         loader: () =>
-          axios.get("http://localhost:3000/countUsers?memberReq=memberReq"),
+          axios.get(
+            "https://arc-lane-server.vercel.app/countUsers?memberReq=memberReq"
+          ),
         hydrateFallbackElement: <Loading1></Loading1>,
       },
       {

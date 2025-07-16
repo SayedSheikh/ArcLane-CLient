@@ -51,6 +51,7 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 transition-colors">
+      <title>ArcLane | Contact Us</title>
       <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8">
         <h2 className="text-2xl font-bold text-center mb-6 text-indigo-600 dark:text-indigo-400">
           Contact Us
@@ -86,7 +87,7 @@ const ContactUs = () => {
             <button
               disabled={loading}
               type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer">
               Send Message
             </button>
           )}

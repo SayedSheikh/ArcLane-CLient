@@ -133,6 +133,7 @@ const ManageCoupons = () => {
 
   return (
     <div className="p-6 text-gray-800 dark:text-white font-inter">
+      <title>ArcLane | Manage Coupons</title>
       <div className="flex flex-col  justify-start items-start mb-6 gap-3">
         <h2 className="text-3xl font-bold">🎟️ Manage Coupons</h2>
         <button

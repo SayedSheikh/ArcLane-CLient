@@ -107,6 +107,7 @@ const AgreementReq = () => {
 
   return (
     <div className="p-4 space-y-4 max-w-[1200px] mx-auto font-inter">
+      <title>ArcLane | Agreement requests</title>
       <h2 className="text-3xl font-bold text-center dark:text-white">
         Agreement Requests
       </h2>

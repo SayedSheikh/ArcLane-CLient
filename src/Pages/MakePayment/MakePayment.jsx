@@ -69,6 +69,7 @@ const MakePayment = () => {
   return (
     <div className="">
       <div className="max-w-xl mx-auto px-6 py-10 bg-white dark:bg-gray-900 rounded-lg shadow-lg font-inter mt-10 border border-primary/30">
+        <title>ArcLane | Payment</title>
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-200">
           Make Payment
         </h2>
@@ -161,7 +162,7 @@ const MakePayment = () => {
             <Button
               type="submit"
               color="blue"
-              className="w-full mt-4"
+              className="w-full mt-4 cursor-pointer"
               disabled={!selectedMonth}>
               Pay Now
             </Button>

@@ -21,9 +21,9 @@ const PaymentPage = () => {
     return <Navigate to="/dashboard/payment"></Navigate>;
   }
 
-  console.log(formData);
   return (
     <div className="AppWrapper">
+      <title>ArcLane | Payment</title>
       <Elements stripe={stripePromise} options={ELEMENTS_OPTIONS}>
         <CheckoutForm formData={formData} />
       </Elements>

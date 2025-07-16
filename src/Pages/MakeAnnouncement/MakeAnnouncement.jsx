@@ -153,6 +153,7 @@ const MakeAnnouncement = () => {
 
       {/* Preview Box */}
       <div className="max-w-3xl mx-auto mt-8 bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 p-4 rounded-lg">
+        <title>ArcLane | Make Announcement</title>
         <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2">
           🔎 Preview
         </h3>

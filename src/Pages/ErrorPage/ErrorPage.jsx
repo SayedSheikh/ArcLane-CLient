@@ -11,6 +11,7 @@ const ErrorPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors">
+      <title>ArcLane | Error</title>
       <div className="text-center p-8 max-w-md">
         <img
           src="/error-eye.gif"

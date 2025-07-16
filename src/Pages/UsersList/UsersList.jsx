@@ -34,6 +34,7 @@ const UsersList = () => {
 
   return (
     <div className="p-4 space-y-3">
+      <title>ArcLane | All Users</title>
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white text-center">
         Users List
       </h1>

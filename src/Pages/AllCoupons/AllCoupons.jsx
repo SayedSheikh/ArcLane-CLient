@@ -43,6 +43,7 @@ const AllCoupons = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}>
+      <title>ArcLane | All Coupons</title>
       <h2 className="text-3xl font-bold mb-8 text-center text-blue-700 dark:text-blue-400">
         All Available Coupons
       </h2>

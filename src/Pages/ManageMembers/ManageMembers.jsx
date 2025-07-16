@@ -76,6 +76,7 @@ const ManageMembers = () => {
 
   return (
     <div className="p-4 space-y-3 font-inter">
+      <title>ArcLane | Manage Members</title>
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white text-center">
         Members List
       </h1>

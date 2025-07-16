@@ -17,8 +17,6 @@ const GithubLogin = () => {
   const handleClick = () => {
     githubAuth()
       .then(async (res) => {
-        console.log(res.user);
-
         const userDetails = {
           username: res.user.displayName,
           email: res.user.providerData[0].email,

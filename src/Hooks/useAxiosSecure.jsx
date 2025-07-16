@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import useAuth from "./useAuth";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://arc-lane-server.vercel.app",
 });
 
 const useAxiosSecure = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const reqInterceptor = axiosInstance.interceptors.request.use(
@@ -17,7 +20,7 @@ const useAxiosSecure = () => {
       },
       (error) => {
         console.log(error);
-        Promise.reject(error);
+        return Promise.reject(error);
       }
     );
     const resInterceptor = axiosInstance.interceptors.response.use(
@@ -25,8 +28,18 @@ const useAxiosSecure = () => {
         return res;
       },
       (error) => {
-        console.log(error);
-        Promise.reject(error);
+        const status = error.response?.status;
+        if (status === 401 || status === 403) {
+          logOut()
+            .then(() => {
+              toast.success("LogIn again !!");
+              navigate("/login");
+            })
+            .catch((err) => {
+              console.log("interceptor error ", err);
+            });
+        }
+        return Promise.reject(error);
       }
     );
 
@@ -34,7 +47,7 @@ const useAxiosSecure = () => {
       axiosInstance.interceptors.request.eject(reqInterceptor);
       axiosInstance.interceptors.response.eject(resInterceptor);
     };
-  }, [user]);
+  }, [user, logOut, navigate]);
 
   return axiosInstance;
 };

@@ -21,6 +21,7 @@ const UserProfile = () => {
   }
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 font-inter pt-10">
+      <title>ArcLane | Profile</title>
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg">
         {/* Gradient Header */}
         <div className="relative bg-gradient-to-r from-indigo-500 to-blue-500 h-35 flex items-center rounded-t-xl">

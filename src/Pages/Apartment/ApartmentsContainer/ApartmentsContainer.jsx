@@ -39,6 +39,7 @@ const ApartmentsContainer = () => {
     data,
     isLoading,
     isError,
+    isFetching,
     refetch: refetchData,
   } = useQuery({
     queryKey: ["apartments", page],
@@ -65,6 +66,7 @@ const ApartmentsContainer = () => {
 
   return (
     <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 pt-10 w-11/12 font-inter text-gray-900 dark:text-gray-200">
+      <title>ArcLane | Apartments</title>
       {/* Heading */}
       <header className="max-w-3xl mx-auto text-center mb-16">
         <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
@@ -155,7 +157,7 @@ const ApartmentsContainer = () => {
         <section className="lg:w-[80%] grid grid-cols-1 xl:grid-cols-2 gap-5 items-start min-h-[200px]">
           {/* ✅ Loading State */}
           {/* TODO:Add Spinner */}
-          {isLoading ? (
+          {isLoading || isFetching ? (
             <>
               <Skeletone></Skeletone>
               <Skeletone></Skeletone>

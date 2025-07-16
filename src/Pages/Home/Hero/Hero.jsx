@@ -86,7 +86,7 @@ const Hero = () => {
                 <div className="flex flex-wrap justify-center gap-4 mb-10">
                   <Button
                     onClick={() => {
-                      navigate("/appartment");
+                      navigate("/apartment");
                     }}
                     className="cursor-pointer bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
                     Explore Apartments

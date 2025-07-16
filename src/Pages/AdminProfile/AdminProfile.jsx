@@ -11,6 +11,7 @@ import {
   FiLock,
 } from "react-icons/fi";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import Loading1 from "../Loadings/Loading1";
 
 // Color schemes
 const COLORS = ["#10b981", "#f59e0b", "#ef4444"]; // Available, Pending, Booked
@@ -76,8 +77,7 @@ const AdminProfile = () => {
     },
   });
 
-  if (isLoading)
-    return <p className="text-center mt-10">Loading dashboard...</p>;
+  if (isLoading) return <Loading1></Loading1>;
   if (isError)
     return (
       <p className="text-center text-red-500 mt-10">Failed to load stats.</p>
@@ -106,6 +106,7 @@ const AdminProfile = () => {
 
   return (
     <section className="py-10 px-4 md:px-10 rounded-sm md:rounded-md bg-gray-50 dark:bg-gray-900 min-h-screen font-inter">
+      <title>ArcLane | AdminProfile</title>
       <div className="max-w-6xl mx-auto space-y-10 ">
         {/* Admin Info */}
         <div className="flex flex-col md:flex-row items-center bg-white dark:bg-gray-800 rounded-xl shadow p-6">

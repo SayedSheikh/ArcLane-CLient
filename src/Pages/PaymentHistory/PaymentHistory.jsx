@@ -13,6 +13,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { format } from "date-fns";
+import { MdOutlinePayment } from "react-icons/md";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -49,14 +50,22 @@ const PaymentHistory = () => {
 
   if (!paymentHistory.length) {
     return (
-      <div className="text-center text-gray-700 dark:text-gray-200 font-semibold mt-10">
-        You have no payment history to show.
+      <div className="flex flex-col items-center justify-center mt-16 text-center px-4">
+        <MdOutlinePayment className="text-6xl text-primary dark:text-indigo-400 mb-4 animate-bounce" />
+        <h3 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-2">
+          No Payment History Found
+        </h3>
+        <p className="text-gray-500 dark:text-gray-400 max-w-md">
+          It looks like you haven't made any payments yet. Once a payment is
+          made, your payment history will appear here.
+        </p>
       </div>
     );
   }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      <title>ArcLane | Payment History</title>
       <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-gray-100">
         Payment History
       </h2>

@@ -5,6 +5,7 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -43,8 +44,12 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, obj);
   };
 
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
   const logOut = () => {
     setLoading(true);
+    sessionStorage.removeItem("dueNotificationShown");
 
     return signOut(auth);
   };
@@ -58,9 +63,8 @@ const AuthProvider = ({ children }) => {
     githubAuth,
     updateUserProfile,
     logOut,
+    resetPassword,
   };
-
-  console.log(user);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {

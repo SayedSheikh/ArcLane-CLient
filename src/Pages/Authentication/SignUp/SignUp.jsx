@@ -106,6 +106,7 @@ const Signup = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 px-4 font-inter">
+      <title>ArcLane | SignUp</title>
       <div className="absolute top-[5%] left-[2%]">
         <Logo />
       </div>

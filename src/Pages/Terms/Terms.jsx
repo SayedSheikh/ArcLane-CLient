@@ -9,6 +9,7 @@ import {
 const Terms = () => {
   return (
     <div className="max-w-4xl mx-auto px-6 py-12 text-gray-800 dark:text-gray-200">
+      <title>ArcLane | Terms & Conditions</title>
       <h1 className="text-4xl font-bold text-center mb-10 text-blue-700 dark:text-blue-400">
         <FaGavel className="inline mr-2 text-secondary" />
         Terms and Conditions

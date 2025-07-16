@@ -18,8 +18,6 @@ const GoogleLogin = () => {
   const handleClick = () => {
     googleAuth()
       .then(async (res) => {
-        console.log(res.user);
-
         const userDetails = {
           username: res.user.displayName,
           email: res.user.email,
