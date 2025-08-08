@@ -23,7 +23,7 @@ import { NavLink } from "react-router";
 export default function CustomFooter() {
   const date = new Date();
   return (
-    <div className="bg-[#030712]">
+    <div className="bg-[#030712]  border-t-1 border-primary">
       <Footer
         container
         className="max-w-[1500px] mx-auto bg-[#030712] dark:bg-[#030712] border-none shadow-none">

@@ -84,12 +84,12 @@ const Hero = () => {
                 <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10">
                   <Button
                     onClick={() => navigate("/apartment")}
-                    className="bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90">
+                    className="bg-primary dark:bg-primary hover:bg-primary/90 dark:hover:bg-primary/90 cursor-pointer">
                     Explore Apartments
                   </Button>
                   <Button
                     onClick={() => navigate("/contactUs")}
-                    className="bg-white dark:bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-200 transition">
+                    className="bg-white dark:bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-200 transition cursor-pointer">
                     Contact Us
                   </Button>
                 </div>

@@ -30,7 +30,7 @@ const UsersList = () => {
     },
   });
 
-  const formatDate = (dateStr) => new Date(dateStr).toLocaleString();
+  const formatDate = (dateStr) => new Date(dateStr);
 
   return (
     <div className="p-4 space-y-3">
