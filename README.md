@@ -140,12 +140,3 @@ Visit [http://localhost:5173](http://localhost:5173) in your browser.
 
 Feel free to ⭐️ the repo if you found it helpful!
 
----
-
-✅ Let me know if you want:
-
-- Backend `README.md`
-- `.env.example` template
-- Deployment guide (e.g. Firebase + Vercel combo)
-
-I can generate that too!
