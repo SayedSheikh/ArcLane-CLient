@@ -8,20 +8,15 @@ Arclane is a feature-rich building management system built with **React**, **Fir
 
 ## ✨ Features
 
-- 🔐 JWT-based authentication (fully secured routes)
-- 🧑‍💼 Role-based dashboards: Admin | Member | User
-- 💳 Stripe payment integration for monthly rent
 - 📣 Admin announcement system
 - 📅 Dynamic rent due checker with popup reminder
-- 🧾 Admin payment history chart with `Recharts`
 - 🎯 Coupons system (admin can manage status)
 - 👥 Admin can remove members
 - 📍 Interactive map using `React Leaflet`
 - 📬 Email sending using `EmailJS`
-- 📊 Beautiful pie charts for user & room data
 - 🚪 Room availability status: available, pending, booked
-- 🔐 Axios interceptor integration for secure requests
-- 🌍 Responsive & modern UI with Tailwind CSS + **Flowbite**
+- 🔐 JWT-based authentication (fully secured routes)
+- 💳 Stripe payment integration for monthly rent
 
 ---
 
@@ -145,12 +140,3 @@ Visit [http://localhost:5173](http://localhost:5173) in your browser.
 
 Feel free to ⭐️ the repo if you found it helpful!
 
----
-
-✅ Let me know if you want:
-
-- Backend `README.md`
-- `.env.example` template
-- Deployment guide (e.g. Firebase + Vercel combo)
-
-I can generate that too!
