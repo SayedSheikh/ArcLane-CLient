@@ -32,6 +32,7 @@ import Terms from "../Pages/Terms/Terms";
 import AllCoupons from "../Pages/AllCoupons/AllCoupons";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 import AboutUs from "../Pages/AboutUs/AboutUs";
+import UserOverview from "../Pages/UserOverview/UserOverview";
 
 export const router = createBrowserRouter([
   {
@@ -141,6 +142,14 @@ export const router = createBrowserRouter([
         element: (
           <UsersRoute>
             <UserProfile></UserProfile>
+          </UsersRoute>
+        ),
+      },
+      {
+        path: "userOverview",
+        element: (
+          <UsersRoute>
+            <UserOverview />
           </UsersRoute>
         ),
       },

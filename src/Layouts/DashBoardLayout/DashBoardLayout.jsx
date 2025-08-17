@@ -91,6 +91,10 @@ const Dashboard = () => {
                 <FaUserCircle className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 My Profile
               </NavLink>
+              <NavLink to="/dashboard/userOverview" className={getNavStyle}>
+                <FaUserCircle className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
+                Overview
+              </NavLink>
               <NavLink to="/dashboard/announcements" className={getNavStyle}>
                 <FaBullhorn className="text-orange-500 text-xl group-hover:text-orange-600 transition-colors" />
                 Announcements
