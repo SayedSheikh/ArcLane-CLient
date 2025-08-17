@@ -44,7 +44,7 @@ const CustomeNavbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `px-3 py-2 rounded ${
+              `px-2 py-2 rounded ${
                 isActive ? "text-primary font-semibold" : ""
               }`
             }>
@@ -53,12 +53,23 @@ const CustomeNavbar = () => {
           <NavLink
             to="/apartment"
             className={({ isActive }) =>
-              `px-3 py-2 rounded ${
+              `px-2 py-2 rounded ${
                 isActive ? "text-primary font-semibold" : ""
               }`
             }>
             Apartment
           </NavLink>
+          <NavLink
+            to="/about-us"
+            className={({ isActive }) =>
+              `px-2 py-2 rounded ${
+                isActive ? "text-primary font-semibold" : ""
+              }`
+            }>
+            AboutUs
+          </NavLink>
+
+          {/* /dashboard/userProfile */}
 
           {/* Show login on mobile only if not logged in */}
           {!user && (

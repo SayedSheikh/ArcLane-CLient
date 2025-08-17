@@ -31,6 +31,7 @@ import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import Terms from "../Pages/Terms/Terms";
 import AllCoupons from "../Pages/AllCoupons/AllCoupons";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: "forgot-password",
         Component: ForgotPassword,
+      },
+      {
+        path: "about-us",
+        Component: AboutUs,
       },
     ],
   },
