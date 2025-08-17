@@ -19,6 +19,7 @@ const ApartmentsContainer = () => {
   const [searchValue, setSearchValue] = useState("");
   const [max, setMax] = useState(25000);
   const [min, setMin] = useState(15000);
+  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
 
   const rentOptions = [
     15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000,
@@ -65,8 +66,9 @@ const ApartmentsContainer = () => {
   };
 
   return (
-    <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 pt-20 w-11/12 font-inter text-gray-900 dark:text-gray-200 ">
+    <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 pt-20 w-11/12 font-inter text-gray-900 dark:text-gray-200">
       <title>ArcLane | Apartments</title>
+
       {/* Heading */}
       <header className="max-w-3xl mx-auto text-center mb-16">
         <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
@@ -154,27 +156,48 @@ const ApartmentsContainer = () => {
         </aside>
 
         {/* Right: Apartment Cards */}
-        <section className="lg:w-[80%] grid grid-cols-1 xl:grid-cols-2 gap-5 items-start min-h-[200px]">
-          {/* ✅ Loading State */}
-          {/* TODO:Add Spinner */}
-          {isLoading || isFetching ? (
-            <>
-              <Skeletone></Skeletone>
-              <Skeletone></Skeletone>
-            </>
-          ) : isError ? (
-            <div className="col-span-full text-center text-red-500 font-semibold">
-              Something went wrong. Please try again later.
-            </div>
-          ) : data?.length === 0 ? (
-            <div className="col-span-full text-center text-gray-500 dark:text-gray-400 font-medium">
-              No apartments found matching your criteria.
-            </div>
-          ) : (
-            data?.map((item) => (
-              <ApartmentCard key={item._id} apartment={item} />
-            ))
-          )}
+        <section className="lg:w-[80%]">
+          {/* Sorting Dropdown */}
+          <div className="flex justify-end items-center mb-4">
+            <label className="mr-2 font-medium text-gray-700 dark:text-gray-300">
+              Sort by Rent:
+            </label>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-sm font-medium">
+              <option value="">None</option>
+              <option value="asc">Low to High</option>
+              <option value="desc">High to Low</option>
+            </select>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start min-h-[200px]">
+            {isLoading || isFetching ? (
+              <>
+                <Skeletone />
+                <Skeletone />
+              </>
+            ) : isError ? (
+              <div className="col-span-full text-center text-red-500 font-semibold">
+                Something went wrong. Please try again later.
+              </div>
+            ) : data?.length === 0 ? (
+              <div className="col-span-full text-center text-gray-500 dark:text-gray-400 font-medium">
+                No apartments found matching your criteria.
+              </div>
+            ) : (
+              [...data]
+                .sort((a, b) => {
+                  if (sortOrder === "asc") return a.rent - b.rent;
+                  if (sortOrder === "desc") return b.rent - a.rent;
+                  return 0;
+                })
+                .map((item) => (
+                  <ApartmentCard key={item._id} apartment={item} />
+                ))
+            )}
+          </div>
         </section>
       </div>
 

@@ -42,7 +42,7 @@ const Reviews = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12">
+          className="text-3xl font-bold text-center text-primary mb-12">
           What People Say
         </motion.h2>
 
