@@ -6,7 +6,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useQueryClient } from "@tanstack/react-query";
 
-const ApartmentCard = ({ apartment }) => {
+const ApartmentCard = ({ apartment, featured }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -143,11 +143,19 @@ const ApartmentCard = ({ apartment }) => {
             </span>
           </p>
 
-          <button
-            onClick={handleClick}
-            className="mt-3 w-fit px-4 py-2 text-sm font-semibold bg-primary text-white rounded-md hover:bg-primary/70 transition cursor-pointer">
-            Agreement
-          </button>
+          {featured ? (
+            <button
+              onClick={() => navigate("/apartment")}
+              className="mt-3 w-fit px-4 py-2 text-sm font-semibold bg-primary text-white rounded-md hover:bg-primary/70 transition cursor-pointer">
+              View More
+            </button>
+          ) : (
+            <button
+              onClick={handleClick}
+              className="mt-3 w-fit px-4 py-2 text-sm font-semibold bg-primary text-white rounded-md hover:bg-primary/70 transition cursor-pointer">
+              Agreement
+            </button>
+          )}
         </div>
       </div>
     </div>

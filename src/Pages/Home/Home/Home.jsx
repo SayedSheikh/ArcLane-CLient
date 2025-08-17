@@ -7,6 +7,7 @@ import Location from "../Location/Location";
 import WhatsAround from "../WhatsAround/WhatsAround";
 import DuePaymentPopup from "../DuePaymentPopup/DuePaymentPopup";
 import useDueCalculate from "../DuePaymentPopup/useDueCalculate";
+import Featured from "../Featured/Featured";
 // import useAuth from "../../../Hooks/useAuth";
 
 const Home = () => {
@@ -29,6 +30,7 @@ const Home = () => {
       )}
       <Hero />
       <AboutBuilding />
+      <Featured />
       <Amenities />
       <SpecialOffers />
       <Location />

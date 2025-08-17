@@ -65,7 +65,7 @@ const ApartmentsContainer = () => {
   };
 
   return (
-    <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 pt-10 w-11/12 font-inter text-gray-900 dark:text-gray-200 pt-20">
+    <div className="dark:bg-[#030712] max-w-[1500px] mx-auto py-16 pt-20 w-11/12 font-inter text-gray-900 dark:text-gray-200 ">
       <title>ArcLane | Apartments</title>
       {/* Heading */}
       <header className="max-w-3xl mx-auto text-center mb-16">
