@@ -81,13 +81,13 @@ const CustomeNavbar = () => {
                 Profile
               </NavLink>
               <NavLink
-                to="/dashboard/payment"
+                to="/dashboard/announcements"
                 className={({ isActive }) =>
                   `px-2 py-2 rounded ${
                     isActive ? "text-primary font-semibold" : ""
                   }`
                 }>
-                Payment
+                Announcements
               </NavLink>
             </>
           )}
