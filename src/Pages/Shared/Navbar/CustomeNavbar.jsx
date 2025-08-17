@@ -69,6 +69,28 @@ const CustomeNavbar = () => {
             AboutUs
           </NavLink>
 
+          {user && (
+            <>
+              <NavLink
+                to="/dashboard/userProfile"
+                className={({ isActive }) =>
+                  `px-2 py-2 rounded ${
+                    isActive ? "text-primary font-semibold" : ""
+                  }`
+                }>
+                Profile
+              </NavLink>
+              <NavLink
+                to="/dashboard/payment"
+                className={({ isActive }) =>
+                  `px-2 py-2 rounded ${
+                    isActive ? "text-primary font-semibold" : ""
+                  }`
+                }>
+                Payment
+              </NavLink>
+            </>
+          )}
           {/* /dashboard/userProfile */}
 
           {/* Show login on mobile only if not logged in */}
