@@ -8,6 +8,7 @@ import WhatsAround from "../WhatsAround/WhatsAround";
 import DuePaymentPopup from "../DuePaymentPopup/DuePaymentPopup";
 import useDueCalculate from "../DuePaymentPopup/useDueCalculate";
 import Featured from "../Featured/Featured";
+import Reviews from "../Reviews/Reviews";
 // import useAuth from "../../../Hooks/useAuth";
 
 const Home = () => {
@@ -35,6 +36,7 @@ const Home = () => {
       <SpecialOffers />
       <Location />
       <WhatsAround />
+      <Reviews />
     </div>
   );
 };
