@@ -16,7 +16,7 @@ const UsersRoute = ({ children }) => {
     return <Navigate to="/login"></Navigate>;
   }
 
-  if (!["user", "member"].includes(userRole?.role)) {
+  if (!["user", "member", "admin"].includes(userRole?.role)) {
     return <Navigate to="/forbidden"></Navigate>;
   }
 

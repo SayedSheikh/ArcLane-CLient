@@ -50,9 +50,13 @@ const Dashboard = () => {
         <SidebarItemGroup className="flex flex-col">
           {userRole?.role === "admin" && (
             <>
-              <NavLink to="/dashboard/admin-profile" className={getNavStyle}>
+              <NavLink to="/dashboard/userProfile" className={getNavStyle}>
                 <FaUserShield className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
                 Admin Profile
+              </NavLink>
+              <NavLink to="/dashboard/admin-overview" className={getNavStyle}>
+                <FaUserShield className="text-blue-500 text-xl group-hover:text-blue-600 transition-colors" />
+                Admin Overview
               </NavLink>
               <NavLink to="/dashboard/users" className={getNavStyle}>
                 <FaUsers className="text-green-500 text-xl group-hover:text-green-600 transition-colors" />

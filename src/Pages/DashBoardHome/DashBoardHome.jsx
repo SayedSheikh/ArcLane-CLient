@@ -14,7 +14,7 @@ const DashBoardHome = () => {
     return <Navigate to="/dashboard/userProfile"></Navigate>;
   }
   if (userRole.role === "admin") {
-    return <Navigate to="/dashboard/admin-profile"></Navigate>;
+    return <Navigate to="/dashboard/userProfile"></Navigate>;
   }
 
   // return <div className="dark:text-white">dashboard home {userRole?.role}</div>;
